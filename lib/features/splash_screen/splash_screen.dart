@@ -18,8 +18,8 @@ class SplashScreen extends StatelessWidget {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is SplashLoadSuccess) {
-          // Navigate to home after splash
-          NavigatorService.pushNamedAndRemoveUntil(AppRoutes.homeScreen);
+          // Navigate to walkthrough after splash
+          NavigatorService.pushNamedAndRemoveUntil(AppRoutes.walkthroughScreen);
         }
       },
       child: Scaffold(
