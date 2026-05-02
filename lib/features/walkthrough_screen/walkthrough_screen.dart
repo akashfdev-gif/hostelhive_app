@@ -42,7 +42,8 @@ class WalkthroughScreen extends StatelessWidget {
 
   Widget _buildImageSection(BuildContext context) {
     return CustomImageView(
-      imagePath: "https://img.freepik.com/free-vector/hostel-concept-illustration_114360-9150.jpg",
+      imagePath:
+          "https://img.freepik.com/free-vector/hostel-concept-illustration_114360-9150.jpg",
       height: 300.h,
       width: double.infinity,
       radius: BorderRadius.circular(16.h),
@@ -54,60 +55,20 @@ class WalkthroughScreen extends StatelessWidget {
     return Column(
       spacing: 16.h,
       children: [
-        RichText(
+        Text(
+          "msg_walkthrough_title".tr,
           textAlign: TextAlign.center,
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: "msg_find_your_home".tr,
-                style: CustomTextStyle.text2xlBold.copyWith(
-                  color: appTheme.blue700,
-                ),
-              ),
-            ],
+          style: CustomTextStyle.text2xlBold.copyWith(
+            color: appTheme.black900,
+            height: 1.2,
           ),
         ),
-        RichText(
+        Text(
+          "msg_walkthrough_desc".tr,
           textAlign: TextAlign.center,
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: "msg_discover_hostels".tr,
-                style: CustomTextStyle.textBaseMedium.copyWith(
-                  color: appTheme.gray700,
-                ),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: CustomTextStyle.textLgSemiBold.copyWith(
-              color: appTheme.gray800,
-            ),
-            children: [
-              TextSpan(
-                text: "msg_safe".tr,
-                style: TextStyle(color: appTheme.green700),
-              ),
-              TextSpan(
-                text: " & ",
-                style: TextStyle(color: appTheme.gray700),
-              ),
-              TextSpan(
-                text: "msg_comfortable".tr,
-                style: TextStyle(color: appTheme.orange900),
-              ),
-              TextSpan(text: "msg_stay_awaits".tr),
-              TextSpan(
-                text: "lbl_hostel_hive".tr,
-                style: TextStyle(
-                  color: appTheme.blue700,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          style: CustomTextStyle.textBaseMedium.copyWith(
+            color: appTheme.gray600,
+            height: 1.5,
           ),
         ),
       ],
