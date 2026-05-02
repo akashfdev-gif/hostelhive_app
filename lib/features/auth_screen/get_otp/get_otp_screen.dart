@@ -30,11 +30,14 @@ class GetOtpScreen extends StatelessWidget {
               _buildPhoneInputSection(context),
               SizedBox(height: 40.h),
               _buildGetOtpButton(),
-              SizedBox(
-                  height: 60.h), // Adjust spacing to push footer down a bit
-              _buildFooterText(),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 24.h),
+          child: _buildFooterText(),
         ),
       ),
     );
