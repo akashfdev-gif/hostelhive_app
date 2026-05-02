@@ -1,10 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:hostel_hive/core/localization/app_localization.dart';
-import 'package:hostel_hive/core/utils/size_utils.dart';
-import 'package:hostel_hive/themes/custom_text_style.dart';
-import 'package:hostel_hive/themes/theme_helper.dart';
-
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
 

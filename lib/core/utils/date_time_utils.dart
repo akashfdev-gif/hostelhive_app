@@ -2,7 +2,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 const String dateTimeFormatPattern = 'dd/MM/yyyy';
-const String D_M_Y = 'd/M/y';
+const String dMy = 'dd/MM/yyyy';
 
 extension DateTimeExtension on DateTime {
   String format({String pattern = dateTimeFormatPattern, String? locale}) {
