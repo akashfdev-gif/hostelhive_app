@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:book_store/v2/core/app_export.dart';
-
+import 'package:hostel_hive/core/app_export.dart';
 
 extension CurrencyExtensions on num {
   String toCurrencyFormatString({int? decimalPlaces}) {
@@ -18,8 +17,6 @@ extension CurrencyExtensions on num {
         locale: 'en_IN');
     return formatter.format(this);
   }
-
-  
 }
 
 extension CurrencyExtensionsString on String {

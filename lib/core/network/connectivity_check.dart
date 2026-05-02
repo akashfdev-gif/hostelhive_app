@@ -4,10 +4,9 @@ import 'package:hostel_hive/core/localization/app_localization.dart';
 import 'package:hostel_hive/core/utils/size_utils.dart';
 import 'package:hostel_hive/themes/custom_text_style.dart';
 import 'package:hostel_hive/themes/theme_helper.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart'; 
+
+import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
-import 'package:hostel_hive/main.dart'; // Make sure scaffoldMessengerKey is defined here
 
 ConnectivityService connectivity = ConnectivityService.instance;
 
@@ -97,7 +96,7 @@ class ConnectivityService {
     if (_bannerShown) return;
     _bannerShown = true;
 
-    scaffoldMessengerKey.currentState
+    NavigatorService.scaffoldMessengerKey.currentState
       ?..hideCurrentMaterialBanner()
       ..showMaterialBanner(
         MaterialBanner(
@@ -110,7 +109,7 @@ class ConnectivityService {
           ),
           leading: Icon(Icons.wifi_off, color: appTheme.otherWhite),
           backgroundColor: appTheme.gray900,
-          actions: [SizedBox.shrink()],
+          actions: const [SizedBox.shrink()],
         ),
       );
   }
@@ -118,7 +117,8 @@ class ConnectivityService {
   /// Hide the MaterialBanner
   void _hideNoInternetBanner() {
     if (!_bannerShown) return;
-    scaffoldMessengerKey.currentState?.hideCurrentMaterialBanner();
+    NavigatorService.scaffoldMessengerKey.currentState
+        ?.hideCurrentMaterialBanner();
     _bannerShown = false;
   }
 

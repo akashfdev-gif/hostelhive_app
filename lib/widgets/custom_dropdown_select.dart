@@ -1,8 +1,5 @@
-import 'package:book_store/core/utils/size_utils.dart';
-import 'package:book_store/themes/custom_text_style.dart';
-import 'package:book_store/themes/theme_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:book_store/v2/core/app_export.dart';
+import 'package:hostel_hive/core/app_export.dart';
 
 /// A custom dropdown widget that allows users to select an option from a list.
 ///
@@ -17,27 +14,27 @@ import 'package:book_store/v2/core/app_export.dart';
 /// [onChange] is an optional callback function that is called when an option is selected.
 ///
 class CustomDropdownSelect extends StatefulWidget {
-  const CustomDropdownSelect(
-      {super.key,
-      required this.options,
-      this.labelText,
-      this.initialValue,
-      this.offset,
-      this.onChange,
-      this.labelLowercase = false,
-      this.customTextStyle,
-      this.dropdownButtonTextStyle,
-      this.showSeperator = true,
-      this.minDropdownTileHeight,
-      this.dropdownIcon,
-      this.borderRadius,
-      this.width,
-      this.height,
-      this.dropdownColor,
-      this.verticalPadding,
-      this.horizontalPadding,
-      this.prefixIcon,
-      });
+  const CustomDropdownSelect({
+    super.key,
+    required this.options,
+    this.labelText,
+    this.initialValue,
+    this.offset,
+    this.onChange,
+    this.labelLowercase = false,
+    this.customTextStyle,
+    this.dropdownButtonTextStyle,
+    this.showSeperator = true,
+    this.minDropdownTileHeight,
+    this.dropdownIcon,
+    this.borderRadius,
+    this.width,
+    this.height,
+    this.dropdownColor,
+    this.verticalPadding,
+    this.horizontalPadding,
+    this.prefixIcon,
+  });
 
   final List<String> options;
   final String? labelText;
@@ -217,7 +214,8 @@ class _CustomDropdownSelectState extends State<CustomDropdownSelect> {
                         child: widget.prefixIcon!,
                       ),
                     Expanded(
-                      child: Text(selectedVal ?? widget.initialValue ?? 'Select',
+                      child: Text(
+                          selectedVal ?? widget.initialValue ?? 'Select',
                           overflow: TextOverflow.ellipsis,
                           style: widget.dropdownButtonTextStyle ??
                               CustomTextStyle.textBaseRegular

@@ -1,11 +1,7 @@
 import 'dart:io';
 
-import 'package:hostel_hive/core/network/end_points.dart';
-import 'package:hostel_hive/core/persistent_storage/local_storage_controller.dart';
-import 'package:hostel_hive/core/utils/logger.dart';
 import 'package:dio/dio.dart';
-import 'package:hostel_hive/v2/core/app_export.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hostel_hive/core/app_export.dart';
 
 enum Method { post, get, put, delete, patch }
 

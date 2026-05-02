@@ -1,16 +1,3 @@
-import 'package:book_store/core/utils/navigator_service.dart';
-import 'package:book_store/core/utils/size_utils.dart';
-import 'package:book_store/themes/custom_button_style.dart';
-import 'package:book_store/themes/custom_text_style.dart';
-import 'package:book_store/themes/theme_helper.dart';
-import 'package:book_store/widgets/custom_elevated_button.dart';
-import 'package:hostel_hive/core/utils/navigator_service.dart';
-import 'package:hostel_hive/core/utils/size_utils.dart';
-import 'package:hostel_hive/themes/custom_button_style.dart';
-import 'package:hostel_hive/themes/custom_text_style.dart';
-import 'package:hostel_hive/themes/theme_helper.dart';
-import 'package:hostel_hive/theme/custom_button_style.dart';
-import 'package:hostel_hive/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
 

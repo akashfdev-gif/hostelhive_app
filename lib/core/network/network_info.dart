@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:hostel_hive/main_v1.dart';
+import 'package:flutter/material.dart';
+import 'package:hostel_hive/core/app_export.dart';
 
 // For checking internet connectivity
 abstract class NetworkInfoI {
@@ -63,8 +63,8 @@ class NoInternetException implements Exception {
   late String _message;
 
   NoInternetException([String message = 'NoInternetException Occurred']) {
-    if (scaffoldMessengerKey.currentState != null) {
-      scaffoldMessengerKey.currentState!
+    if (NavigatorService.scaffoldMessengerKey.currentState != null) {
+      NavigatorService.scaffoldMessengerKey.currentState!
           .showSnackBar(SnackBar(content: Text(message)));
     }
     _message = message;

@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:book_store/core/utils/size_utils.dart';
-import 'package:book_store/themes/theme_helper.dart';
-import 'package:book_store/v2/core/app_export.dart';
+import 'package:hostel_hive/core/app_export.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

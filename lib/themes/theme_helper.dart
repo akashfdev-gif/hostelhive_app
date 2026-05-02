@@ -1,5 +1,3 @@
-import 'package:book_store/core/utils/pref_utils.dart';
-import 'package:book_store/core/utils/size_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../core/app_export.dart';

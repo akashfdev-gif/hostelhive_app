@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:book_store/v2/core/utils/navigator_service.dart';
+import 'package:hostel_hive/core/utils/navigator_service.dart';
 
 class ProgressDialogUtils {
   static bool isProgressVisible = false;
@@ -13,7 +13,7 @@ class ProgressDialogUtils {
           barrierDismissible: isCancellable,
           context: NavigatorService.navigatorKey.currentState!.overlay!.context,
           builder: (BuildContext context) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator.adaptive(
                 strokeWidth: 4,
                 valueColor: AlwaysStoppedAnimation<Color>(

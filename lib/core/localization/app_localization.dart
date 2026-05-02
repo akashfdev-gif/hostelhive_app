@@ -1,4 +1,4 @@
-import 'package:book_store/core/utils/navigator_service.dart';
+import 'package:hostel_hive/core/utils/navigator_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import '../app_export.dart';

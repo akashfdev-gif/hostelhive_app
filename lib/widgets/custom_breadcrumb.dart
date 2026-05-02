@@ -1,8 +1,5 @@
-import 'package:book_store/core/utils/size_utils.dart';
-import 'package:book_store/themes/custom_text_style.dart';
-import 'package:book_store/themes/theme_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:book_store/v2/core/app_export.dart';
+import 'package:hostel_hive/core/app_export.dart';
 
 class CustomBreadcrumb extends StatelessWidget {
   const CustomBreadcrumb({
@@ -32,7 +29,7 @@ class CustomBreadcrumb extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      // height: 42.h,
+      height: 42.h,
       decoration: BoxDecoration(
         border: Border(
             top: BorderSide(color: appTheme.gray20001, width: 1),

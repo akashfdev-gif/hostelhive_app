@@ -1,7 +1,7 @@
-import 'package:book_store/core/utils/logger.dart';
-import 'package:book_store/themes/theme_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:book_store/v2/core/app_export.dart';
+import 'package:hostel_hive/core/app_export.dart';
+import 'package:hostel_hive/core/utils/logger.dart';
+import 'package:hostel_hive/themes/theme_helper.dart';
 
 /// Returns a CircleAvatar widget with:
 /// - The initial of the name (first letter of first word, uppercased)

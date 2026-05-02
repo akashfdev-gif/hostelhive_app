@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:book_store/v2/core/app_export.dart';
-import 'package:book_store/v2/core/network/connectivity_check.dart';
+import 'package:hostel_hive/core/app_export.dart';
+import 'package:hostel_hive/core/network/connectivity_check.dart';
 
 class NavigatorService {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
   static List<String> allowedOfflineRoutes = [];
   static Future<dynamic> pushNamed(
     String routeName, {

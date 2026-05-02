@@ -1,6 +1,3 @@
-import 'package:book_store/core/utils/navigator_service.dart';
-import 'package:book_store/themes/custom_text_style.dart';
-import 'package:book_store/themes/theme_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../core/app_export.dart';
