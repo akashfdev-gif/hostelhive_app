@@ -94,7 +94,7 @@ class ThemeHelper {
 /// Class containing the supported color schemes.
 class ColorSchemes {
   static const lightCodeColorScheme = ColorScheme.light(
-    primary: Color(0xFF263192),
+    primary: Color(0xFFCB414E), // red900
     errorContainer: Color(0XFFFF1114),
   );
 }

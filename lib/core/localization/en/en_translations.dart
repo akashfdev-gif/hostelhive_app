@@ -11,4 +11,13 @@ final Map<String, String> en = {
   "msg_comfortable": "Comfortable",
   "msg_stay_awaits": " Stay Awaits at ",
   "msg_hive": "Hive",
+  "msg_welcome_to": "Welcome to ",
+  "lbl_hostel_hive_auth": "Hostel Hive",
+  "lbl_enter_phone": "Enter Your Phone Number",
+  "lbl_phone_number": "Phone Number",
+  "lbl_get_otp": "Get OTP",
+  "msg_by_proceeding": "By proceeding, you agree to our\n",
+  "lbl_terms": "Terms & Conditions",
+  "lbl_and": " and ",
+  "lbl_privacy": "Privacy Policy.",
 };
