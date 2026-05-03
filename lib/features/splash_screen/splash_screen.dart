@@ -7,8 +7,8 @@ class SplashScreen extends StatelessWidget {
 
   static Widget builder(BuildContext context) {
     return BlocProvider<SplashBloc>(
-      create: (context) => SplashBloc(SplashInitial())
-        ..add(SplashInitialEvent()),
+      create: (context) =>
+          SplashBloc(SplashInitial())..add(SplashInitialEvent()),
       child: const SplashScreen(),
     );
   }
@@ -32,9 +32,10 @@ class SplashScreen extends StatelessWidget {
             spacing: 20.h,
             children: [
               CustomImageView(
-                imagePath: "https://cdn-icons-png.flaticon.com/512/10044/10044101.png",
+                imagePath:
+                    "https://cdn-icons-png.flaticon.com/512/10044/10044101.png",
                 height: 120.h,
-                width: 120.w,
+                width: 120.h,
               ),
               Text(
                 "lbl_hostel_hive".tr,
@@ -45,7 +46,7 @@ class SplashScreen extends StatelessWidget {
               Text(
                 "msg_stay_with_ease".tr,
                 style: CustomTextStyle.textBaseMedium.copyWith(
-                  color: appTheme.otherWhite.withValues(alpha: 0.8),
+                  color: appTheme.otherWhite,
                 ),
                 textAlign: TextAlign.center,
               ),

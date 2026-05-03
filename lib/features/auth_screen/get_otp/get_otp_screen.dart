@@ -53,7 +53,7 @@ class GetOtpScreen extends StatelessWidget {
       child: CustomImageView(
         imagePath: ImageConstant.imgGetOtp,
         height: 100.h,
-        width: 100.w,
+        width: 100.h,
         radius: BorderRadius.circular(50.h),
       ),
     );
@@ -112,9 +112,8 @@ class GetOtpScreen extends StatelessWidget {
                       ),
                       onChanged: (String? newValue) {
                         if (newValue != null) {
-                          context
-                              .read<GetOtpBloc>()
-                              .add(GetOtpCountryCodeChanged(countryCode: newValue));
+                          context.read<GetOtpBloc>().add(
+                              GetOtpCountryCodeChanged(countryCode: newValue));
                         }
                       },
                       items: <String>['+91', '+1', '+44', '+61']
@@ -161,8 +160,7 @@ class GetOtpScreen extends StatelessWidget {
             backgroundColor: state.isPhoneNumberValid
                 ? theme.colorScheme.primary
                 : theme.colorScheme.primary.withValues(alpha: 0.3),
-            disabledBackgroundColor:
-                theme.colorScheme.primary.withValues(alpha: 0.3),
+            disabledBackgroundColor: theme.colorScheme.primary.withValues(alpha: 0.3),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.h),
             ),
@@ -170,6 +168,7 @@ class GetOtpScreen extends StatelessWidget {
           onPressed: state.isPhoneNumberValid
               ? () {
                   context.read<GetOtpBloc>().add(GetOtpSubmitEvent());
+                  NavigatorService.pushNamed(AppRoutes.verifyOtpScreen);
                 }
               : null,
         );
