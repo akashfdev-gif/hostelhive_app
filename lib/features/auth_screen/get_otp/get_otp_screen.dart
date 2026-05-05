@@ -159,8 +159,8 @@ class GetOtpScreen extends StatelessWidget {
             minimumSize: Size(double.infinity, 56.h),
             backgroundColor: state.isPhoneNumberValid
                 ? theme.colorScheme.primary
-                : theme.colorScheme.primary.withValues(alpha: 0.3),
-            disabledBackgroundColor: theme.colorScheme.primary.withValues(alpha: 0.3),
+                : theme.colorScheme.primary,
+            disabledBackgroundColor: theme.colorScheme.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.h),
             ),

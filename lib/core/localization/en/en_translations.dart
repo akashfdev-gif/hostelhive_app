@@ -25,7 +25,7 @@ final Map<String, String> en = {
   "lbl_otp_verification": "OTP Verification",
   "msg_otp_sent": "An OTP has been sent to your phone number.",
   "lbl_verify_otp": "Verify OTP",
-  "msg_didnt_receive_code": "Didn't Recieve Code? ",
+  "msg_didnt_receive_code": "Didn't Recieve Code?",
   "lbl_resend": "Resend",
   "lbl_resend_in": "Resend in ",
   "lbl_sec": "s",
