@@ -3,6 +3,7 @@ import 'package:hostel_hive/features/walkthrough_screen/walkthrough_screen.dart'
 import 'package:hostel_hive/features/auth_screen/get_otp/get_otp_screen.dart';
 import 'package:hostel_hive/features/auth_screen/verify_otp/verify_otp_screen.dart';
 import 'package:hostel_hive/features/successful_screen/successful_screen.dart';
+import 'package:hostel_hive/features/dashboard_screen/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -11,7 +12,8 @@ class AppRoutes {
   static const String getOtpScreen = '/get_otp_screen';
   static const String verifyOtpScreen = '/verify_otp_screen';
   static const String successfulScreen = '/successful_screen';
-  static const String homeScreen = '/home_screen';
+  static const String dashboardScreen = '/dashboard_screen';
+  static const String homeScreen = dashboardScreen;
   static const String initialRoute = splashScreen;
 
   static Map<String, WidgetBuilder> get routes => {
@@ -20,10 +22,6 @@ class AppRoutes {
         getOtpScreen: GetOtpScreen.builder,
         verifyOtpScreen: VerifyOtpScreen.builder,
         successfulScreen: SuccessfulScreen.builder,
-        homeScreen: (context) => const Scaffold(
-              body: Center(
-                child: Text('Home Screen Placeholder'),
-              ),
-            ),
+        dashboardScreen: DashboardScreen.builder,
       };
 }

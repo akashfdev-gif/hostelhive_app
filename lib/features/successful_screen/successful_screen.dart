@@ -79,7 +79,7 @@ class SuccessfulScreen extends StatelessWidget {
                 onPressed: () {
                   context.read<SuccessfulBloc>().add(SuccessfulContinueEvent());
                   NavigatorService.pushNamedAndRemoveUntil(
-                      AppRoutes.homeScreen);
+                      AppRoutes.dashboardScreen);
                 },
               );
             },
