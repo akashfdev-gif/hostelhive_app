@@ -15,8 +15,14 @@ class GetOtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appTheme.otherWhite,
+    return BlocListener<GetOtpBloc, GetOtpState>(
+      listener: (context, state) {
+        if (state.isSuccess) {
+          NavigatorService.pushNamed(AppRoutes.verifyOtpScreen);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: appTheme.otherWhite,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
@@ -39,6 +45,7 @@ class GetOtpScreen extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 24.h),
           child: _buildFooterText(),
         ),
+      ),
       ),
     );
   }
@@ -153,22 +160,30 @@ class GetOtpScreen extends StatelessWidget {
     return BlocBuilder<GetOtpBloc, GetOtpState>(
       builder: (context, state) {
         return CustomElevatedButton(
-          text: "lbl_get_otp".tr,
-          leftIcon: Icon(Icons.lock_outline, color: appTheme.otherWhite),
+          text: state.isLoading ? "" : "lbl_get_otp".tr,
+          leftIcon: state.isLoading
+              ? SizedBox(
+                  height: 24.h,
+                  width: 24.h,
+                  child: CircularProgressIndicator(
+                    color: appTheme.otherWhite,
+                    strokeWidth: 2,
+                  ),
+                )
+              : Icon(Icons.lock_outline, color: appTheme.otherWhite),
           buttonStyle: ElevatedButton.styleFrom(
             minimumSize: Size(double.infinity, 56.h),
-            backgroundColor: state.isPhoneNumberValid
+            backgroundColor: state.isPhoneNumberValid && !state.isLoading
                 ? theme.colorScheme.primary
-                : theme.colorScheme.primary,
-            disabledBackgroundColor: theme.colorScheme.primary,
+                : theme.colorScheme.primary.withValues(alpha: 0.2),
+            disabledBackgroundColor: theme.colorScheme.primary.withValues(alpha: 0.2),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.h),
             ),
           ),
-          onPressed: state.isPhoneNumberValid
+          onPressed: (state.isPhoneNumberValid && !state.isLoading)
               ? () {
                   context.read<GetOtpBloc>().add(GetOtpSubmitEvent());
-                  NavigatorService.pushNamed(AppRoutes.verifyOtpScreen);
                 }
               : null,
         );

@@ -24,12 +24,15 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
     emit(state.copyWith(otpCode: event.otpCode));
   }
 
-  void _onSubmit(
+  Future<void> _onSubmit(
     VerifyOtpSubmitEvent event,
     Emitter<VerifyOtpState> emit,
-  ) {
+  ) async {
     if (state.isOtpValid) {
-      // Add logic here to verify OTP
+      emit(state.copyWith(isLoading: true));
+      // Simulate network request
+      await Future.delayed(const Duration(seconds: 2));
+      emit(state.copyWith(isLoading: false, isSuccess: true));
     }
   }
 

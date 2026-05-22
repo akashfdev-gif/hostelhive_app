@@ -25,12 +25,15 @@ class GetOtpBloc extends Bloc<GetOtpEvent, GetOtpState> {
     emit(state.copyWith(selectedCountryCode: event.countryCode));
   }
 
-  void _onSubmit(
+  Future<void> _onSubmit(
     GetOtpSubmitEvent event,
     Emitter<GetOtpState> emit,
-  ) {
+  ) async {
     if (state.isPhoneNumberValid) {
-      // Add logic here to submit phone number and request OTP
+      emit(state.copyWith(isLoading: true));
+      // Simulate network request
+      await Future.delayed(const Duration(seconds: 2));
+      emit(state.copyWith(isLoading: false, isSuccess: true));
     }
   }
 }

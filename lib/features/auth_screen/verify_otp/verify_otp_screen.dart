@@ -15,8 +15,14 @@ class VerifyOtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appTheme.otherWhite,
+    return BlocListener<VerifyOtpBloc, VerifyOtpState>(
+      listener: (context, state) {
+        if (state.isSuccess) {
+          NavigatorService.pushNamed(AppRoutes.successfulScreen);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: appTheme.otherWhite,
       appBar: CustomAppBar(
         title: "",
         backgroundColor: Colors.transparent,
@@ -53,6 +59,7 @@ class VerifyOtpScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
       ),
     );
   }
@@ -172,11 +179,20 @@ class VerifyOtpScreen extends StatelessWidget {
     return BlocBuilder<VerifyOtpBloc, VerifyOtpState>(
       builder: (context, state) {
         return CustomElevatedButton(
-          text: "lbl_verify_otp".tr,
-          leftIcon: Icon(Icons.verified, color: appTheme.otherWhite),
+          text: state.isLoading ? "" : "lbl_verify_otp".tr,
+          leftIcon: state.isLoading
+              ? SizedBox(
+                  height: 24.h,
+                  width: 24.h,
+                  child: CircularProgressIndicator(
+                    color: appTheme.otherWhite,
+                    strokeWidth: 2,
+                  ),
+                )
+              : Icon(Icons.verified, color: appTheme.otherWhite),
           buttonStyle: ElevatedButton.styleFrom(
             minimumSize: Size(double.infinity, 56.h),
-            backgroundColor: state.isOtpValid
+            backgroundColor: state.isOtpValid && !state.isLoading
                 ? theme.colorScheme.primary
                 : theme.colorScheme.primary.withValues(alpha: 0.2),
             disabledBackgroundColor:
@@ -185,10 +201,9 @@ class VerifyOtpScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.h),
             ),
           ),
-          onPressed: state.isOtpValid
+          onPressed: (state.isOtpValid && !state.isLoading)
               ? () {
                   context.read<VerifyOtpBloc>().add(VerifyOtpSubmitEvent());
-                  NavigatorService.pushNamed(AppRoutes.successfulScreen);
                 }
               : null,
         );
