@@ -108,7 +108,12 @@ class MealsTab extends StatelessWidget {
                   ),
                 ),
                 textColor: theme.colorScheme.primary,
-                onPressed: () {},
+                onPressed: () {
+                  NavigatorService.pushNamed(
+                    AppRoutes.foodFeedbackScreen,
+                    arguments: state.mealRating,
+                  );
+                },
               ),
               CustomElevatedButton(
                 text: 'lbl_view_weekly'.tr,

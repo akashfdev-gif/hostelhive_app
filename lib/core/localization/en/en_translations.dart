@@ -79,6 +79,13 @@ final Map<String, String> en = {
   "msg_dinner_time": "7:00 PM – 9:00 PM",
   "lbl_rate_meal": "Rate Today's Meal",
   "lbl_submit_feedback": "Submit Feedback",
+  "lbl_select_meal": "Select Meal",
+  "lbl_your_feedback": "Your Feedback",
+  "lbl_feedback_hint": "Share your feedback about today's meal...",
+  "msg_feedback_submitted":
+      "Your meal rating and feedback have been submitted successfully!",
+  "msg_select_rating": "Please select a meal rating",
+  "lbl_ok": "OK",
   "lbl_view_weekly": "View Weekly Menu",
   "lbl_monday": "Monday",
   "lbl_tuesday": "Tuesday",

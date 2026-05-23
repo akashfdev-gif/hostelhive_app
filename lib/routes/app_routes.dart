@@ -5,6 +5,7 @@ import 'package:hostel_hive/features/auth_screen/verify_otp/verify_otp_screen.da
 import 'package:hostel_hive/features/successful_screen/successful_screen.dart';
 import 'package:hostel_hive/features/dashboard_screen/dashboard_screen.dart';
 import 'package:hostel_hive/features/weekly_menu_screen/weekly_menu_screen.dart';
+import 'package:hostel_hive/features/food_feedback_screen/food_feedback_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -15,6 +16,7 @@ class AppRoutes {
   static const String successfulScreen = '/successful_screen';
   static const String dashboardScreen = '/dashboard_screen';
   static const String weeklyMenuScreen = '/weekly_menu_screen';
+  static const String foodFeedbackScreen = '/food_feedback_screen';
   static const String homeScreen = dashboardScreen;
   static const String initialRoute = splashScreen;
 
@@ -26,5 +28,6 @@ class AppRoutes {
         successfulScreen: SuccessfulScreen.builder,
         dashboardScreen: DashboardScreen.builder,
         weeklyMenuScreen: WeeklyMenuScreen.builder,
+        foodFeedbackScreen: FoodFeedbackScreen.builder,
       };
 }
