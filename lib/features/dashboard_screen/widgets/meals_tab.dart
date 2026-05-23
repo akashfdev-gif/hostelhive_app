@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
 import 'package:hostel_hive/features/dashboard_screen/bloc/dashboard_bloc.dart';
 import 'package:hostel_hive/features/dashboard_screen/widgets/dashboard_section_card.dart';
+import 'package:hostel_hive/features/dashboard_screen/widgets/meal_menu_row.dart';
 
 class MealsTab extends StatelessWidget {
   const MealsTab({super.key});
@@ -22,17 +23,17 @@ class MealsTab extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 10.h,
                   children: [
-                    _MenuRow(
+                    MealMenuRow(
                       meal: 'lbl_breakfast'.tr,
                       menu: 'msg_breakfast_menu'.tr,
                     ),
                     Divider(color: appTheme.gray200, height: 1),
-                    _MenuRow(
+                    MealMenuRow(
                       meal: 'lbl_lunch'.tr,
                       menu: 'msg_lunch_menu'.tr,
                     ),
                     Divider(color: appTheme.gray200, height: 1),
-                    _MenuRow(
+                    MealMenuRow(
                       meal: 'lbl_dinner'.tr,
                       menu: 'msg_dinner_menu'.tr,
                     ),
@@ -116,47 +117,14 @@ class MealsTab extends StatelessWidget {
                   color: appTheme.otherWhite,
                   size: 20.h,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  NavigatorService.pushNamed(AppRoutes.weeklyMenuScreen);
+                },
               ),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-class _MenuRow extends StatelessWidget {
-  const _MenuRow({required this.meal, required this.menu});
-
-  final String meal;
-  final String menu;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 12.w,
-      children: [
-        Flexible(
-          flex: 2,
-          child: Text(
-            meal,
-            style: CustomTextStyle.textSmSemiBold.copyWith(
-              color: appTheme.black900,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 5,
-          child: Text(
-            menu,
-            style: CustomTextStyle.textSmRegular.copyWith(
-              color: appTheme.black600,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:hostel_hive/features/auth_screen/get_otp/get_otp_screen.dart';
 import 'package:hostel_hive/features/auth_screen/verify_otp/verify_otp_screen.dart';
 import 'package:hostel_hive/features/successful_screen/successful_screen.dart';
 import 'package:hostel_hive/features/dashboard_screen/dashboard_screen.dart';
+import 'package:hostel_hive/features/weekly_menu_screen/weekly_menu_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -13,6 +14,7 @@ class AppRoutes {
   static const String verifyOtpScreen = '/verify_otp_screen';
   static const String successfulScreen = '/successful_screen';
   static const String dashboardScreen = '/dashboard_screen';
+  static const String weeklyMenuScreen = '/weekly_menu_screen';
   static const String homeScreen = dashboardScreen;
   static const String initialRoute = splashScreen;
 
@@ -23,5 +25,6 @@ class AppRoutes {
         verifyOtpScreen: VerifyOtpScreen.builder,
         successfulScreen: SuccessfulScreen.builder,
         dashboardScreen: DashboardScreen.builder,
+        weeklyMenuScreen: WeeklyMenuScreen.builder,
       };
 }
