@@ -22,8 +22,7 @@ class SignInScreen extends StatelessWidget {
           if (role == 'student') {
             NavigatorService.pushNamedAndRemoveUntil(AppRoutes.dashboardScreen);
           } else {
-            // TODO: Navigate to admin dashboard
-            NavigatorService.pushNamedAndRemoveUntil(AppRoutes.dashboardScreen);
+            NavigatorService.pushNamedAndRemoveUntil(AppRoutes.adminDashboardScreen);
           }
         }
       },

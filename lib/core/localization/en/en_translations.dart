@@ -173,4 +173,39 @@ final Map<String, String> en = {
   "msg_email_info": "rahul.sharma@college.edu",
   "msg_phone_info": "+91 98765 43210",
   "lbl_settings": "Settings",
+
+  // Admin panel – bottom navigation
+  "lbl_admin_nav_home": "Overview",
+  "lbl_admin_nav_complaints": "Manage Complaints",
+  "lbl_admin_nav_meals": "Manage Meals",
+  "lbl_admin_nav_students": "Students",
+  "lbl_admin_nav_profile": "Profile",
+
+  // Admin panel – home tab
+  "lbl_admin_dashboard": "Admin Dashboard",
+  "lbl_total_students": "Total Students",
+  "lbl_pending_complaints": "Pending Complaints",
+  "lbl_todays_meals_status": "Today's Meals",
+  "lbl_quick_actions_admin": "Quick Actions",
+  "lbl_add_student": "Add Student",
+  "lbl_update_menu": "Update Menu",
+  "lbl_resolve_complaint": "Resolve Complaint",
+  "lbl_send_notice": "Send Notice",
+
+  // Admin panel – complaints tab
+  "lbl_manage_complaints": "Manage Complaints",
+  "lbl_all_complaints": "All Complaints",
+  "lbl_pending": "Pending",
+  "lbl_resolved": "Resolved",
+  "lbl_mark_resolved": "Mark as Resolved",
+
+  // Admin panel – meals tab
+  "lbl_manage_meals": "Manage Meals",
+  "lbl_edit_weekly_menu": "Edit Weekly Menu",
+  "lbl_manage_meal_timings": "Manage Meal Timings",
+
+  // Admin panel – students tab
+  "lbl_manage_students": "Manage Students",
+  "lbl_view_student_list": "Student List",
+  "lbl_view_payments": "View Payments",
 };
