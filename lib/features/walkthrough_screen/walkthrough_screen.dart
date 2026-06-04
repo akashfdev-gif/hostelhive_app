@@ -17,7 +17,7 @@ class WalkthroughScreen extends StatelessWidget {
     return BlocListener<WalkthroughBloc, WalkthroughState>(
       listener: (context, state) {
         if (state.isNavigating) {
-          NavigatorService.pushNamed(AppRoutes.getOtpScreen);
+          NavigatorService.pushNamed(AppRoutes.roleSelectionScreen);
         }
       },
       child: Scaffold(

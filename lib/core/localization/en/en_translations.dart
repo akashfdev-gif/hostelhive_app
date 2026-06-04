@@ -34,6 +34,21 @@ final Map<String, String> en = {
   "msg_dive_into_world":
       "Dive into the world of books and let yours shine among them!",
   "lbl_continue": "Continue",
+  "lbl_choose_role": "Choose Your Role",
+  "lbl_student": "Student",
+  "lbl_admin": "Admin",
+  "lbl_sign_in": "Sign In",
+  "lbl_sign_up": "Sign Up",
+  "lbl_email": "Email",
+  "lbl_password": "Password",
+  "lbl_confirm_password": "Confirm Password",
+  "lbl_forgot_password": "Forgot Password?",
+  "lbl_dont_have_account": "Don't have an account?",
+  "lbl_already_have_account": "Already have an account?",
+  "lbl_enter_valid_email": "Please enter a valid email",
+  "lbl_enter_password": "Please enter password",
+  "lbl_password_min_length": "Password must be at least 6 characters",
+  "lbl_password_not_match": "Passwords do not match",
 
   // Dashboard – bottom navigation
   "lbl_nav_home": "Home",

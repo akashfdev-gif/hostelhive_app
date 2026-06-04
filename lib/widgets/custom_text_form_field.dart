@@ -114,8 +114,8 @@ class CustomTextFormFieldV2 extends StatelessWidget {
           validator: validator,
           onChanged: onChange,
           enabled: enabled,
-          maxLines: maxLines,
-          minLines: minLines,
+          maxLines: (obscureText ?? false) ? 1 : maxLines,
+          minLines: (obscureText ?? false) ? 1 : minLines,
           decoration: CustomTextFormFieldV2.customInputDecoration(
               hintText: hintText,
               hintTextStyle: hintTextStyle,
@@ -156,6 +156,7 @@ class CustomTextFormFieldV2 extends StatelessWidget {
       label: label,
       floatingLabelBehavior: floatingLabelBehavior,
       suffixIcon: suffixIcon,
+      suffixIconConstraints: const BoxConstraints(minWidth: 40, minHeight: 40),
       isDense: true,
       hintText: hintText,
       border: border,
