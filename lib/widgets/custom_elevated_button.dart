@@ -38,6 +38,8 @@ class CustomElevatedButton extends StatelessWidget {
   final IconData? buttonIcon;
   final Widget? leftIcon;
   final Color? textColor;
+  final double? height;
+  final EdgeInsetsGeometry? padding;
   const CustomElevatedButton(
       {super.key,
       required this.onPressed,
@@ -48,12 +50,20 @@ class CustomElevatedButton extends StatelessWidget {
       this.leftIcon,
       this.alignment,
       this.textStyle,
-      this.textColor});
+      this.textColor,
+      this.height,
+      this.padding});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        style: buttonStyle ?? CustomButtonStyle.primaryButtonTheme,
+    return SizedBox(
+      height: height,
+      child: ElevatedButton(
+        style: (buttonStyle ?? CustomButtonStyle.primaryButtonTheme).copyWith(
+          padding: padding != null
+              ? WidgetStateProperty.all(padding)
+              : null,
+        ),
         onPressed: loading ? null : onPressed,
         child: loading
             ? SizedBox(
@@ -82,6 +92,8 @@ class CustomElevatedButton extends StatelessWidget {
                       size: 24.h,
                     ),
                 ],
-              ));
+              ),
+      ),
+    );
   }
 }

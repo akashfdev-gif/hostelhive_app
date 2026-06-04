@@ -79,20 +79,24 @@ class RoleSelectionScreen extends StatelessWidget {
                     spacing: 12.h,
                     children: [
                       CustomElevatedButton(
-                      text: 'lbl_sign_in'.tr,
-                      onPressed: selectedRole == null
-                          ? null
-                          : () {
-                              NavigatorService.pushNamed(
-                                AppRoutes.signInScreen,
-                                arguments: selectedRole,
-                              );
-                            },
-                    ),
+                        text: 'lbl_sign_in'.tr,
+                        height: 56.h,
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        onPressed: selectedRole == null
+                            ? null
+                            : () {
+                                NavigatorService.pushNamed(
+                                  AppRoutes.signInScreen,
+                                  arguments: selectedRole,
+                                );
+                              },
+                      ),
                       if (selectedRole == 'student')
                         CustomElevatedButton(
                           text: 'lbl_sign_up'.tr,
                           textColor: appTheme.black900,
+                          height: 56.h,
+                          padding: EdgeInsets.symmetric(vertical: 16.h),
                           buttonStyle: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(appTheme.otherWhite),
                             shape: MaterialStatePropertyAll(RoundedRectangleBorder(

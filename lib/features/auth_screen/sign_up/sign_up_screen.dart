@@ -117,6 +117,8 @@ class SignUpScreen extends StatelessWidget {
                     return CustomElevatedButton(
                       text: 'lbl_sign_up'.tr,
                       loading: state.isLoading,
+                      height: 56.h,
+                      padding: EdgeInsets.symmetric(vertical: 16.h),
                       onPressed: !state.isFormValid
                           ? null
                           : () {
