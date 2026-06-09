@@ -14,16 +14,24 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final role =
+        ModalRoute.of(context)?.settings.arguments as String? ?? 'student';
+    final isAdmin = role == 'admin';
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state.isSuccess) {
-          NavigatorService.pushNamedAndRemoveUntil(AppRoutes.dashboardScreen);
+          if (isAdmin) {
+            NavigatorService.pushNamedAndRemoveUntil(
+                AppRoutes.adminDashboardScreen);
+          } else {
+            NavigatorService.pushNamedAndRemoveUntil(AppRoutes.dashboardScreen);
+          }
         }
       },
       child: Scaffold(
         backgroundColor: appTheme.otherWhite,
         appBar: CustomAppBar(
-          title: 'lbl_sign_up'.tr,
+          title: isAdmin ? 'Admin Sign Up' : 'Student Sign Up',
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -43,7 +51,9 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Create an account to get started',
+                      isAdmin
+                          ? 'Create an admin account to manage hostel operations'
+                          : 'Create an account to get started',
                       style: CustomTextStyle.textBaseMedium.copyWith(
                         color: appTheme.gray600,
                       ),
@@ -60,7 +70,9 @@ class SignUpScreen extends StatelessWidget {
                           hintText: 'Enter your email',
                           keyboard: TextInputType.emailAddress,
                           onChange: (val) {
-                            context.read<SignUpBloc>().add(SignUpEmailChanged(val));
+                            context
+                                .read<SignUpBloc>()
+                                .add(SignUpEmailChanged(val));
                           },
                         ),
                         CustomTextFormFieldV2(
@@ -82,7 +94,9 @@ class SignUpScreen extends StatelessWidget {
                             },
                           ),
                           onChange: (val) {
-                            context.read<SignUpBloc>().add(SignUpPasswordChanged(val));
+                            context
+                                .read<SignUpBloc>()
+                                .add(SignUpPasswordChanged(val));
                           },
                         ),
                         CustomTextFormFieldV2(
@@ -104,7 +118,9 @@ class SignUpScreen extends StatelessWidget {
                             },
                           ),
                           onChange: (val) {
-                            context.read<SignUpBloc>().add(SignUpConfirmPasswordChanged(val));
+                            context
+                                .read<SignUpBloc>()
+                                .add(SignUpConfirmPasswordChanged(val));
                           },
                         ),
                         if (state.errorMessage != null)
@@ -128,7 +144,9 @@ class SignUpScreen extends StatelessWidget {
                       onPressed: !state.isFormValid
                           ? null
                           : () {
-                              context.read<SignUpBloc>().add(const SignUpSubmitEvent());
+                              context
+                                  .read<SignUpBloc>()
+                                  .add(const SignUpSubmitEvent());
                             },
                     );
                   },
@@ -144,7 +162,10 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        NavigatorService.pushNamed(AppRoutes.signInScreen, arguments: 'student');
+                        NavigatorService.pushNamed(
+                          AppRoutes.signInScreen,
+                          arguments: role,
+                        );
                       },
                       child: Text(
                         'lbl_sign_in'.tr,

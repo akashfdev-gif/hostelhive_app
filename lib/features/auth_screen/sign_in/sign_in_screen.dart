@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
 import 'package:hostel_hive/features/auth_screen/sign_in/bloc/sign_in_bloc.dart';
+
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
@@ -13,21 +14,24 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final role = ModalRoute.of(context)?.settings.arguments as String?;
+    final role =
+        ModalRoute.of(context)?.settings.arguments as String? ?? 'student';
+    final isAdmin = role == 'admin';
     return BlocListener<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state.isSuccess) {
-          if (role == 'student') {
-            NavigatorService.pushNamedAndRemoveUntil(AppRoutes.dashboardScreen);
+          if (isAdmin) {
+            NavigatorService.pushNamedAndRemoveUntil(
+                AppRoutes.adminDashboardScreen);
           } else {
-            NavigatorService.pushNamedAndRemoveUntil(AppRoutes.adminDashboardScreen);
+            NavigatorService.pushNamedAndRemoveUntil(AppRoutes.dashboardScreen);
           }
         }
       },
       child: Scaffold(
         backgroundColor: appTheme.otherWhite,
         appBar: CustomAppBar(
-          title: 'lbl_sign_in'.tr,
+          title: isAdmin ? 'Admin Sign In' : 'Student Sign In',
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -41,13 +45,15 @@ class SignInScreen extends StatelessWidget {
                   spacing: 8.h,
                   children: [
                     Text(
-                      'lbl_sign_in'.tr,
+                      isAdmin ? 'Admin Sign In' : 'Student Sign In',
                       style: CustomTextStyle.text3xlBold.copyWith(
                         color: appTheme.black900,
                       ),
                     ),
                     Text(
-                      'Welcome back! Please enter your details',
+                      isAdmin
+                          ? 'Enter admin credentials to continue.'
+                          : 'Welcome back! Please enter your details',
                       style: CustomTextStyle.textBaseMedium.copyWith(
                         color: appTheme.gray600,
                       ),
@@ -64,7 +70,9 @@ class SignInScreen extends StatelessWidget {
                           hintText: 'Enter your email',
                           keyboard: TextInputType.emailAddress,
                           onChange: (val) {
-                            context.read<SignInBloc>().add(SignInEmailChanged(val));
+                            context
+                                .read<SignInBloc>()
+                                .add(SignInEmailChanged(val));
                           },
                         ),
                         CustomTextFormFieldV2(
@@ -86,7 +94,9 @@ class SignInScreen extends StatelessWidget {
                             },
                           ),
                           onChange: (val) {
-                            context.read<SignInBloc>().add(SignInPasswordChanged(val));
+                            context
+                                .read<SignInBloc>()
+                                .add(SignInPasswordChanged(val));
                           },
                         ),
                         Align(
@@ -122,7 +132,9 @@ class SignInScreen extends StatelessWidget {
                       onPressed: !state.isFormValid
                           ? null
                           : () {
-                              context.read<SignInBloc>().add(const SignInSubmitEvent());
+                              context
+                                  .read<SignInBloc>()
+                                  .add(const SignInSubmitEvent());
                             },
                     );
                   },
@@ -138,9 +150,10 @@ class SignInScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        if (role == 'student') {
-                          NavigatorService.pushNamed(AppRoutes.signUpScreen);
-                        }
+                        NavigatorService.pushNamed(
+                          AppRoutes.signUpScreen,
+                          arguments: role,
+                        );
                       },
                       child: Text(
                         'lbl_sign_up'.tr,
