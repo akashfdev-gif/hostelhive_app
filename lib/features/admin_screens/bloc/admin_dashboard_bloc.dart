@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:hostel_hive/features/admin_screens/bloc/admin_dashboard_event.dart';
-import 'package:hostel_hive/features/admin_screens/bloc/admin_dashboard_state.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'admin_dashboard_event.dart';
 part 'admin_dashboard_state.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
+import 'package:hostel_hive/features/dashboard_screen/widgets/dashboard_section_card.dart';
 
 class AdminMealsTab extends StatelessWidget {
   const AdminMealsTab({super.key});

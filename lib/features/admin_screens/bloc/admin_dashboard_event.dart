@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'admin_dashboard_bloc.dart';
 
 abstract class AdminDashboardEvent extends Equatable {
   const AdminDashboardEvent();

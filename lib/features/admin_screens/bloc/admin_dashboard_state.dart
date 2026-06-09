@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'admin_dashboard_event.dart';
+part of 'admin_dashboard_bloc.dart';
 
 class AdminDashboardState extends Equatable {
   final AdminTab selectedTab;

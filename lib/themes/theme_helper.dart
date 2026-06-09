@@ -225,6 +225,7 @@ class LightCodeColors {
 
   // Orange
   Color get orange900 => const Color.fromRGBO(218, 145, 1, 1);
+  Color get orange700 => const Color.fromRGBO(235, 171, 58, 1);
   Color get orange50 => const Color.fromRGBO(255, 234, 213, 1);
 
   // Others
