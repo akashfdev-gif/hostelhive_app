@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
 import 'package:hostel_hive/features/auth_screen/sign_in/bloc/sign_in_bloc.dart';
-import 'package:hostel_hive/features/auth_screen/sign_up/sign_up_screen.dart';
-
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
@@ -103,6 +101,13 @@ class SignInScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        if (state.errorMessage != null)
+                          Text(
+                            state.errorMessage!.tr,
+                            style: CustomTextStyle.textSmRegular.copyWith(
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
                       ],
                     );
                   },

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "923126943513",
+    "project_id": "hostel-hive-b518f",
+    "storage_bucket": "hostel-hive-b518f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923126943513:android:6c821f1ba7bddd7d5dff88",
+        "android_client_info": {
+          "package_name": "com.company.Hostelhive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB2gm2XWeJpgtcSQQ9PHT-iihiWXJ9YDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

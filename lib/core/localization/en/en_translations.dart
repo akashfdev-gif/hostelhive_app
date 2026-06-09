@@ -49,6 +49,12 @@ final Map<String, String> en = {
   "lbl_enter_password": "Please enter password",
   "lbl_password_min_length": "Password must be at least 6 characters",
   "lbl_password_not_match": "Passwords do not match",
+  "msg_fill_all_fields": "Please fill all fields",
+  "msg_invalid_credentials": "Invalid email or password. Please try again.",
+  "msg_email_already_in_use": "An account already exists with this email.",
+  "msg_auth_failed": "Authentication failed. Please try again.",
+  "msg_account_disabled": "This account has been disabled.",
+  "msg_too_many_requests": "Too many attempts. Please try again later.",
 
   // Dashboard – bottom navigation
   "lbl_nav_home": "Home",

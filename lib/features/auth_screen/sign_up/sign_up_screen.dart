@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
-import 'package:hostel_hive/features/auth_screen/sign_in/sign_in_screen.dart';
 import 'package:hostel_hive/features/auth_screen/sign_up/bloc/sign_up_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -108,6 +107,13 @@ class SignUpScreen extends StatelessWidget {
                             context.read<SignUpBloc>().add(SignUpConfirmPasswordChanged(val));
                           },
                         ),
+                        if (state.errorMessage != null)
+                          Text(
+                            state.errorMessage!.tr,
+                            style: CustomTextStyle.textSmRegular.copyWith(
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
                       ],
                     );
                   },
