@@ -28,7 +28,7 @@ class AdminBottomNavBar extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 8.h),
           child: Row(
             children: [
               _NavItem(
@@ -39,6 +39,7 @@ class AdminBottomNavBar extends StatelessWidget {
                 label: 'lbl_admin_nav_home'.tr,
                 onTap: onTabSelected,
               ),
+              SizedBox(width: 4.w),
               _NavItem(
                 tab: AdminTab.complaints,
                 selectedTab: selectedTab,
@@ -47,6 +48,7 @@ class AdminBottomNavBar extends StatelessWidget {
                 label: 'lbl_admin_nav_complaints'.tr,
                 onTap: onTabSelected,
               ),
+              SizedBox(width: 4.w),
               _NavItem(
                 tab: AdminTab.meals,
                 selectedTab: selectedTab,
@@ -55,6 +57,7 @@ class AdminBottomNavBar extends StatelessWidget {
                 label: 'lbl_admin_nav_meals'.tr,
                 onTap: onTabSelected,
               ),
+              SizedBox(width: 4.w),
               _NavItem(
                 tab: AdminTab.students,
                 selectedTab: selectedTab,
@@ -63,6 +66,7 @@ class AdminBottomNavBar extends StatelessWidget {
                 label: 'lbl_admin_nav_students'.tr,
                 onTap: onTabSelected,
               ),
+              SizedBox(width: 4.w),
               _NavItem(
                 tab: AdminTab.profile,
                 selectedTab: selectedTab,
@@ -106,7 +110,7 @@ class _NavItem extends StatelessWidget {
         onTap: () => onTap(tab),
         borderRadius: BorderRadius.circular(8.h),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 4.h),
+          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             spacing: 4.h,
@@ -114,7 +118,7 @@ class _NavItem extends StatelessWidget {
               Icon(
                 isSelected ? selectedIcon : icon,
                 color: color,
-                size: 24.h,
+                size: 25.h,
               ),
               FittedBox(
                 fit: BoxFit.scaleDown,
