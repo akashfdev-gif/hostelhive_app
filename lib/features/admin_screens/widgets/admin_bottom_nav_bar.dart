@@ -118,14 +118,14 @@ class _NavItem extends StatelessWidget {
               Icon(
                 isSelected ? selectedIcon : icon,
                 color: color,
-                size: 25.h,
+                size: 26.h,
               ),
               FittedBox(
-                fit: BoxFit.scaleDown,
                 child: Text(
                   label,
-                  style: CustomTextStyle.textXsMedium.copyWith(color: color),
+                  style: CustomTextStyle.label.copyWith(color: color),
                   maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],

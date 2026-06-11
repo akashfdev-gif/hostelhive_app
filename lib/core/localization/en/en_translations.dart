@@ -182,8 +182,8 @@ final Map<String, String> en = {
 
   // Admin panel – bottom navigation
   "lbl_admin_nav_home": "Overview",
-  "lbl_admin_nav_complaints": "Manage Complaints",
-  "lbl_admin_nav_meals": "Manage Meals",
+  "lbl_admin_nav_complaints": "Complaints",
+  "lbl_admin_nav_meals": "Meals",
   "lbl_admin_nav_students": "Students",
   "lbl_admin_nav_profile": "Profile",
 
