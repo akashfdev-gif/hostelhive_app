@@ -52,7 +52,9 @@ class ComplaintsTab extends StatelessWidget {
                   text: 'lbl_track_status'.tr,
                   buttonStyle: CustomButtonStyle.outlinedButtonTheme,
                   textColor: theme.colorScheme.primary,
-                  onPressed: () {},
+                  onPressed: () {
+                    NavigatorService.pushNamed(AppRoutes.trackStatusScreen);
+                  },
                 ),
               ),
             ],

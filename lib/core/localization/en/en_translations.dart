@@ -257,4 +257,48 @@ final Map<String, String> en = {
   "msg_max_images_reached": "Maximum 5 images allowed.",
   "msg_failed_to_take_photo": "Failed to take photo. Please try again.",
   "msg_failed_to_pick_images": "Failed to pick images. Please try again.",
+
+  // Track Status Screen
+  "lbl_track_complaint": "Track Complaint",
+  "lbl_complaint_info": "Complaint Information",
+  "lbl_complaint_id": "Complaint ID",
+  "lbl_category": "Category",
+  "lbl_submitted_on": "Submitted On",
+  "lbl_priority": "Priority",
+  "lbl_current_status": "Current Status",
+  "lbl_progress_timeline": "Progress Timeline",
+  "lbl_admin_message": "Admin Message",
+
+  // Status labels
+  "lbl_status_pending": "Pending",
+  "lbl_status_in_progress": "In Progress",
+  "lbl_status_resolved": "Resolved",
+  "lbl_status_rejected": "Rejected",
+
+  // Status descriptions
+  "msg_status_pending_desc": "Complaint received, waiting for action.",
+  "msg_status_in_progress_desc": "Admin has assigned the issue to maintenance.",
+  "msg_status_resolved_desc": "Issue has been fixed.",
+  "msg_status_rejected_desc": "Complaint cannot be processed.",
+
+  // Timeline steps
+  "lbl_step_submitted": "Complaint Submitted",
+  "lbl_step_received": "Received by Admin",
+  "lbl_step_assigned": "Assigned to Maintenance",
+  "lbl_step_in_progress": "In Progress",
+  "lbl_step_resolved": "Resolved",
+
+  // Timeline step timestamps
+  "lbl_step_submitted_time": "13 Jun 2026 | 10:30 AM",
+  "lbl_step_received_time": "13 Jun 2026 | 10:35 AM",
+  "lbl_step_assigned_time": "13 Jun 2026 | 11:00 AM",
+
+  // Complaint sample data
+  "lbl_complaint_title_sample": "Internet Not Working",
+  "lbl_submitted_on_sample": "13 June 2026",
+
+  // Admin remarks
+  "msg_admin_remark_sample":
+      "We have assigned the network team. The issue will be resolved within 24 hours.",
+  "msg_no_remarks": "No updates yet.",
 };
