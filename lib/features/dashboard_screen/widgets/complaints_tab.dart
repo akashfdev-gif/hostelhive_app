@@ -24,7 +24,9 @@ class ComplaintsTab extends StatelessWidget {
           CustomElevatedButton(
             text: 'lbl_new_complaint'.tr,
             leftIcon: Icon(Icons.add, color: appTheme.otherWhite, size: 22.h),
-            onPressed: () {},
+            onPressed: () {
+              NavigatorService.pushNamed(AppRoutes.addNewComplaintScreen);
+            },
           ),
           Row(
             spacing: 12.w,
