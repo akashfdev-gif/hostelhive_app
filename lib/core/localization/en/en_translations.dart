@@ -246,4 +246,15 @@ final Map<String, String> en = {
   "lbl_submit_complaint": "Submit Complaint",
   "lbl_enter_title": "Enter complaint title",
   "lbl_enter_description": "Enter complaint description",
+
+  // Upload Images Screen
+  "lbl_upload_photo": "Upload Photo",
+  "lbl_take_photo": "Take Photo",
+  "lbl_choose_gallery": "Choose from Gallery",
+  "lbl_submit": "Submit",
+  "msg_accepted_formats": "Accepted formats: JPG, PNG, HEIC",
+  "msg_max_images": "You can upload up to 5 images per complaint.",
+  "msg_max_images_reached": "Maximum 5 images allowed.",
+  "msg_failed_to_take_photo": "Failed to take photo. Please try again.",
+  "msg_failed_to_pick_images": "Failed to pick images. Please try again.",
 };

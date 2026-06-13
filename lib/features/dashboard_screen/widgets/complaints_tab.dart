@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
 import 'package:hostel_hive/features/dashboard_screen/widgets/dashboard_section_card.dart';
+import 'package:hostel_hive/features/upload_images/upload_images_screen.dart';
 
 class ComplaintsTab extends StatelessWidget {
   const ComplaintsTab({super.key});
@@ -36,7 +37,14 @@ class ComplaintsTab extends StatelessWidget {
                   text: 'lbl_upload_image'.tr,
                   buttonStyle: CustomButtonStyle.outlinedButtonTheme,
                   textColor: theme.colorScheme.primary,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            UploadImagesScreen.builder(context),
+                      ),
+                    );
+                  },
                 ),
               ),
               Expanded(

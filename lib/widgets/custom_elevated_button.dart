@@ -78,12 +78,15 @@ class CustomElevatedButton extends StatelessWidget {
                     leftIcon!,
                     SizedBox(width: 8.w),
                   ],
-                  Text(
-                    text,
-                    style: textStyle ??
-                        CustomTextStyle.textBaseMedium.copyWith(
-                          color: textColor ?? appTheme.otherWhite,
-                        ),
+                  Flexible(
+                    child: Text(
+                      text,
+                      overflow: TextOverflow.ellipsis,
+                      style: textStyle ??
+                          CustomTextStyle.textBaseMedium.copyWith(
+                            color: textColor ?? appTheme.otherWhite,
+                          ),
+                    ),
                   ),
                   if (buttonIcon != null)
                     Icon(
