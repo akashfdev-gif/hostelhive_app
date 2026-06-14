@@ -11,6 +11,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({FirebaseAuthService? authService})
       : _authService = authService ?? FirebaseAuthService(),
         super(const SignUpState()) {
+    on<SignUpNameChanged>(_onNameChanged);
     on<SignUpEmailChanged>(_onEmailChanged);
     on<SignUpPasswordChanged>(_onPasswordChanged);
     on<SignUpConfirmPasswordChanged>(_onConfirmPasswordChanged);
@@ -22,6 +23,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   final FirebaseAuthService _authService;
+
+  void _onNameChanged(SignUpNameChanged event, Emitter<SignUpState> emit) {
+    emit(state.copyWith(name: event.name, errorMessage: null));
+  }
 
   void _onEmailChanged(SignUpEmailChanged event, Emitter<SignUpState> emit) {
     emit(state.copyWith(email: event.email, errorMessage: null));
@@ -73,6 +78,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     try {
       await _authService.signUpWithEmailAndPassword(
+        name: state.name,
         email: state.email,
         password: state.password,
       );

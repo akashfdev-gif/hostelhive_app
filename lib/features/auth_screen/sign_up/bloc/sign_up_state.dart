@@ -1,6 +1,7 @@
 part of 'sign_up_bloc.dart';
 
 class SignUpState extends Equatable {
+  final String name;
   final String email;
   final String password;
   final String confirmPassword;
@@ -11,6 +12,7 @@ class SignUpState extends Equatable {
   final bool obscureConfirmPassword;
 
   const SignUpState({
+    this.name = '',
     this.email = '',
     this.password = '',
     this.confirmPassword = '',
@@ -22,9 +24,14 @@ class SignUpState extends Equatable {
   });
 
   bool get isFormValid =>
-      email.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty && (password == confirmPassword);
+      name.isNotEmpty &&
+      email.isNotEmpty &&
+      password.isNotEmpty &&
+      confirmPassword.isNotEmpty &&
+      (password == confirmPassword);
 
   SignUpState copyWith({
+    String? name,
     String? email,
     String? password,
     String? confirmPassword,
@@ -35,6 +42,7 @@ class SignUpState extends Equatable {
     bool? obscureConfirmPassword,
   }) {
     return SignUpState(
+      name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
@@ -48,6 +56,7 @@ class SignUpState extends Equatable {
 
   @override
   List<Object?> get props => [
+        name,
         email,
         password,
         confirmPassword,

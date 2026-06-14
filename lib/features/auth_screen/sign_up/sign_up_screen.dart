@@ -66,6 +66,16 @@ class SignUpScreen extends StatelessWidget {
                       spacing: 16.h,
                       children: [
                         CustomTextFormFieldV2(
+                          labelText: 'Name',
+                          hintText: 'Enter your full name',
+                          keyboard: TextInputType.name,
+                          onChange: (val) {
+                            context
+                                .read<SignUpBloc>()
+                                .add(SignUpNameChanged(val));
+                          },
+                        ),
+                        CustomTextFormFieldV2(
                           labelText: 'lbl_email'.tr,
                           hintText: 'Enter your email',
                           keyboard: TextInputType.emailAddress,

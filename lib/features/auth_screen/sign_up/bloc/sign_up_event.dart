@@ -4,6 +4,11 @@ abstract class SignUpEvent {
   const SignUpEvent();
 }
 
+class SignUpNameChanged extends SignUpEvent {
+  final String name;
+  const SignUpNameChanged(this.name);
+}
+
 class SignUpEmailChanged extends SignUpEvent {
   final String email;
   const SignUpEmailChanged(this.email);
