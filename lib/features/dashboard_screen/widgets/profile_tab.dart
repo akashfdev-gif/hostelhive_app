@@ -15,6 +15,10 @@ class ProfileTab extends StatefulWidget {
 class _ProfileTabState extends State<ProfileTab> {
   String name = "";
   String email = "";
+  String phone = "";
+  String course = "";
+  String roomNumber = "";
+  String block = "";
   bool isLoading = true;
 
   @override
@@ -35,9 +39,14 @@ class _ProfileTabState extends State<ProfileTab> {
       print(doc.data());
 
       if (doc.exists) {
+        final data = doc.data();
         setState(() {
-          name = doc['name'] ?? "";
-          email = doc['email'] ?? "";
+          name = data?['name'] ?? "";
+          email = data?['email'] ?? "";
+          phone = data?['phone'] ?? "";
+          course = data?['course'] ?? "";
+          roomNumber = data?['roomNumber'] ?? "";
+          block = data?['block'] ?? "";
           isLoading = false;
         });
       } else {
@@ -95,7 +104,7 @@ class _ProfileTabState extends State<ProfileTab> {
                     _DetailRow(
                       icon: Icons.school_outlined,
                       label: 'lbl_course'.tr,
-                      value: 'msg_course_info'.tr,
+                      value: course.isEmpty ? 'msg_course_info'.tr : course,
                     ),
                     _DetailRow(
                       icon: Icons.email_outlined,
@@ -105,7 +114,7 @@ class _ProfileTabState extends State<ProfileTab> {
                     _DetailRow(
                       icon: Icons.phone_outlined,
                       label: 'lbl_phone'.tr,
-                      value: 'msg_phone_info'.tr,
+                      value: phone.isEmpty ? 'msg_phone_info'.tr : phone,
                     ),
                   ],
                 ),
@@ -119,12 +128,12 @@ class _ProfileTabState extends State<ProfileTab> {
                     _DetailRow(
                       icon: Icons.meeting_room_outlined,
                       label: 'lbl_room_number'.tr,
-                      value: '204',
+                      value: roomNumber.isEmpty ? '--' : roomNumber,
                     ),
                     _DetailRow(
                       icon: Icons.apartment_outlined,
                       label: 'lbl_block'.tr,
-                      value: 'Block B',
+                      value: block.isEmpty ? '--' : block,
                     ),
                   ],
                 ),
@@ -151,9 +160,12 @@ class _ProfileTabState extends State<ProfileTab> {
               _SettingsTile(
                 icon: Icons.edit_outlined,
                 title: 'lbl_edit_profile'.tr,
-                onTap: () => NavigatorService.pushNamed(
-                  AppRoutes.editProfileScreen,
-                ),
+                onTap: () async {
+                  await NavigatorService.pushNamed(
+                    AppRoutes.editProfileScreen,
+                  );
+                  loadUserData();
+                },
               ),
               _SettingsTile(
                 icon: Icons.support_agent_outlined,
