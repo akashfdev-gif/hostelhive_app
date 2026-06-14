@@ -1,13 +1,66 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
 import 'package:hostel_hive/features/dashboard_screen/bloc/dashboard_bloc.dart';
 import 'package:hostel_hive/features/dashboard_screen/widgets/dashboard_section_card.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
 
   @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
+  String name = "";
+  String email = "";
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserData();
+  }
+
+  Future<void> loadUserData() async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+
+      print("Current UID: $uid");
+
+      final doc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      print(doc.data());
+
+      if (doc.exists) {
+        setState(() {
+          name = doc['name'] ?? "";
+          email = doc['email'] ?? "";
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return BlocBuilder<DashboardBloc, DashboardState>(
       builder: (context, state) {
         return SingleChildScrollView(
@@ -17,12 +70,12 @@ class ProfileTab extends StatelessWidget {
             spacing: 20.h,
             children: [
               NamedAvatar(
-                name: 'msg_student_name'.tr,
+                name: name,
                 radius: 40.h,
                 fontSize: 24.fSize,
               ),
               Text(
-                'msg_student_name'.tr,
+                name,
                 style: CustomTextStyle.textXlBold.copyWith(
                   color: appTheme.black900,
                 ),
@@ -47,7 +100,7 @@ class ProfileTab extends StatelessWidget {
                     _DetailRow(
                       icon: Icons.email_outlined,
                       label: 'lbl_email'.tr,
-                      value: 'msg_email_info'.tr,
+                      value: email,
                     ),
                     _DetailRow(
                       icon: Icons.phone_outlined,
