@@ -10,6 +10,7 @@ import 'package:hostel_hive/features/food_feedback_screen/food_feedback_screen.d
 import 'package:hostel_hive/features/admin_screens/admin_dashboard_screen.dart';
 import 'package:hostel_hive/features/add_new_complaints/add_new_complaint_screen.dart';
 import 'package:hostel_hive/features/track_status/track_status_screen.dart';
+import 'package:hostel_hive/features/dashboard_screen/widgets/edit_profile_screen/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -25,6 +26,7 @@ class AppRoutes {
   static const String foodFeedbackScreen = '/food_feedback_screen';
   static const String addNewComplaintScreen = '/add_new_complaints_screen';
   static const String trackStatusScreen = '/track_status_screen';
+  static const String editProfileScreen = '/edit_profile_screen';
   static const String homeScreen = dashboardScreen;
   static const String initialRoute = splashScreen;
 
@@ -41,5 +43,6 @@ class AppRoutes {
         foodFeedbackScreen: FoodFeedbackScreen.builder,
         addNewComplaintScreen: AddNewComplaintScreen.builder,
         trackStatusScreen: TrackStatusScreen.builder,
+        editProfileScreen: EditProfileScreen.builder,
       };
 }

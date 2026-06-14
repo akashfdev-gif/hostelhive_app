@@ -182,6 +182,27 @@ final Map<String, String> en = {
   "msg_phone_info": "+91 98765 43210",
   "lbl_settings": "Settings",
 
+  // Edit Profile Screen
+  "lbl_save_changes": "Save Changes",
+  "lbl_personal_info": "Personal Information",
+  "lbl_emergency_info": "Emergency Information",
+  "lbl_full_name": "Full Name",
+  "lbl_emergency_contact": "Emergency Contact Number",
+  "lbl_parent_name": "Parent / Guardian Name",
+  "hint_full_name": "Enter your full name",
+  "hint_email": "Your registered email",
+  "hint_phone": "10-digit phone number",
+  "hint_course": "e.g. B.Tech – Computer Science",
+  "hint_room_number": "e.g. 204",
+  "hint_block": "e.g. A",
+  "hint_emergency_contact": "10-digit emergency number",
+  "hint_parent_name": "Enter parent / guardian name",
+  "err_name_required": "Name cannot be empty",
+  "err_phone_invalid": "Enter a valid 10-digit number",
+  "err_room_required": "Room number cannot be empty",
+  "msg_profile_updated": "Profile updated successfully!",
+  "msg_tap_to_change_photo": "Tap to change photo",
+
   // Admin panel – bottom navigation
   "lbl_admin_nav_home": "Overview",
   "lbl_admin_nav_complaints": "Complaints",

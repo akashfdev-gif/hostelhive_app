@@ -151,7 +151,9 @@ class _ProfileTabState extends State<ProfileTab> {
               _SettingsTile(
                 icon: Icons.edit_outlined,
                 title: 'lbl_edit_profile'.tr,
-                onTap: () {},
+                onTap: () => NavigatorService.pushNamed(
+                  AppRoutes.editProfileScreen,
+                ),
               ),
               _SettingsTile(
                 icon: Icons.support_agent_outlined,
