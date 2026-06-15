@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hostel_hive/core/app_export.dart';
 
 part 'add_new_complaint_event.dart';
@@ -49,10 +51,10 @@ class AddNewComplaintBloc
     emit(state.copyWith(contactNumber: event.contactNumber));
   }
 
-  void _onSubmitComplaint(
+  Future<void> _onSubmitComplaint(
     SubmitComplaintEvent event,
     Emitter<AddNewComplaintState> emit,
-  ) {
+  ) async {
     if (state.selectedCategory.isEmpty) {
       Fluttertoast.showToast(msg: "msg_select_category_validation".tr);
       return;
@@ -67,10 +69,43 @@ class AddNewComplaintBloc
     }
 
     emit(state.copyWith(isSubmitting: true));
-    // Simulate API submission
-    Future.delayed(const Duration(seconds: 1), () {
-      Fluttertoast.showToast(msg: "msg_complaint_submitted_success".tr);
+
+    try {
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .get();
+
+      await FirebaseFirestore.instance
+          .collection('complaints')
+          .add({
+        'category': state.selectedCategory,
+        'title': state.title,
+        'description': state.description,
+        'priority': state.priority,
+        'contactNumber': state.contactNumber,
+        'roomNumber': userDoc['roomNumber'] ?? '',
+        'studentId': uid,
+        'studentName': userDoc['name'] ?? '',
+        'status': 'Pending',
+        'createdAt': Timestamp.now(),
+      });
+
+      emit(state.copyWith(isSubmitting: false));
+
+      Fluttertoast.showToast(
+        msg: "Complaint Submitted Successfully",
+      );
+
       NavigatorService.goBack();
-    });
+    } catch (e) {
+      emit(state.copyWith(isSubmitting: false));
+
+      Fluttertoast.showToast(
+        msg: "Error: $e",
+      );
+    }
   }
 }
