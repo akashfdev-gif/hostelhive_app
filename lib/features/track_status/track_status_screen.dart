@@ -120,11 +120,32 @@ class TrackStatusScreen extends StatelessWidget {
                               color: appTheme.blue500,
                             ),
                           ),
-                          Text(
-                            complaint.createdAt.toString().split(' ')[0],
-                            style: CustomTextStyle.textXsRegular.copyWith(
-                              color: appTheme.black400,
-                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 8.w,
+                            children: [
+                              Text(
+                                complaint.createdAt.toString().split(' ')[0],
+                                style: CustomTextStyle.textXsRegular.copyWith(
+                                  color: appTheme.black400,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 28.h,
+                                width: 28.h,
+                                child: IconButton(
+                                  onPressed: () => _showDeleteDialog(
+                                      context, complaint.id),
+                                  padding: EdgeInsets.zero,
+                                  icon: Icon(
+                                    Icons.delete_outline_rounded,
+                                    color: appTheme.red500,
+                                    size: 18.h,
+                                  ),
+                                  tooltip: 'Delete complaint',
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -135,6 +156,38 @@ class TrackStatusScreen extends StatelessWidget {
             },
           );
         },
+      ),
+    );
+  }
+
+  void _showDeleteDialog(BuildContext context, String complaintId) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Delete Complaint'),
+        content:
+            const Text('Are you sure you want to delete this complaint?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: appTheme.black600),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              context
+                  .read<TrackStatusBloc>()
+                  .add(DeleteComplaintEvent(complaintId));
+              Navigator.pop(dialogContext);
+            },
+            child: Text(
+              'Delete',
+              style: TextStyle(color: appTheme.red500),
+            ),
+          ),
+        ],
       ),
     );
   }

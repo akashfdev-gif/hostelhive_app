@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hostel_hive/core/app_export.dart';
+import 'package:hostel_hive/core/models/complaint_model.dart';
 import 'package:hostel_hive/features/dashboard_screen/widgets/dashboard_section_card.dart';
 import 'package:hostel_hive/features/upload_images/upload_images_screen.dart';
+import 'package:intl/intl.dart';
 
 class ComplaintsTab extends StatelessWidget {
   const ComplaintsTab({super.key});
@@ -82,26 +86,97 @@ class ComplaintsTab extends StatelessWidget {
                 )
                 .toList(),
           ),
-          DashboardSectionCard(
+          _buildComplaintHistory(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildComplaintHistory() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      return DashboardSectionCard(
+        title: 'lbl_complaint_history'.tr,
+        child: Text(
+          'Please login to view complaint history',
+          style: CustomTextStyle.textSmRegular
+              .copyWith(color: appTheme.black500),
+        ),
+      );
+    }
+
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('complaints')
+          .where('studentId', isEqualTo: uid)
+          .orderBy('createdAt', descending: true)
+          .limit(5)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return DashboardSectionCard(
             title: 'lbl_complaint_history'.tr,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 12.h,
-              children: [
-                _HistoryItem(
-                  text: 'msg_complaint_resolved'.tr,
-                  isResolved: true,
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(12.h),
+                child: SizedBox(
+                  height: 24.h,
+                  width: 24.h,
+                  child: const CircularProgressIndicator(strokeWidth: 2),
                 ),
-                Divider(color: appTheme.gray200, height: 1),
-                _HistoryItem(
-                  text: 'msg_complaint_pending'.tr,
-                  isResolved: false,
+              ),
+            ),
+          );
+        }
+
+        if (snapshot.hasError) {
+          return DashboardSectionCard(
+            title: 'lbl_complaint_history'.tr,
+            child: Text(
+              'Unable to load history',
+              style: CustomTextStyle.textSmRegular
+                  .copyWith(color: appTheme.red500),
+            ),
+          );
+        }
+
+        final docs = snapshot.data?.docs ?? [];
+        if (docs.isEmpty) {
+          return DashboardSectionCard(
+            title: 'lbl_complaint_history'.tr,
+            child: Row(
+              spacing: 8.w,
+              children: [
+                Icon(Icons.info_outline, color: appTheme.black400, size: 18.h),
+                Text(
+                  'No complaints yet',
+                  style: CustomTextStyle.textSmRegular
+                      .copyWith(color: appTheme.black500),
                 ),
               ],
             ),
+          );
+        }
+
+        final complaints = docs
+            .map((doc) => ComplaintModel.fromFirestore(doc))
+            .toList();
+
+        return DashboardSectionCard(
+          title: 'lbl_complaint_history'.tr,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (int i = 0; i < complaints.length; i++) ...[
+                if (i > 0) Divider(color: appTheme.gray200, height: 1),
+                if (i > 0) SizedBox(height: 12.h),
+                _ComplaintHistoryItem(complaint: complaints[i]),
+                if (i < complaints.length - 1) SizedBox(height: 12.h),
+              ],
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -151,26 +226,49 @@ class _CategoryCard extends StatelessWidget {
   }
 }
 
-class _HistoryItem extends StatelessWidget {
-  const _HistoryItem({required this.text, required this.isResolved});
+class _ComplaintHistoryItem extends StatelessWidget {
+  const _ComplaintHistoryItem({required this.complaint});
 
-  final String text;
-  final bool isResolved;
+  final ComplaintModel complaint;
 
   @override
   Widget build(BuildContext context) {
+    final isResolved = complaint.status.toLowerCase() == 'resolved';
+    final isRejected = complaint.status.toLowerCase() == 'rejected';
+
+    IconData icon;
+    Color color;
+
+    if (isResolved) {
+      icon = Icons.check_circle_outline;
+      color = appTheme.green700;
+    } else if (isRejected) {
+      icon = Icons.cancel_outlined;
+      color = appTheme.red500;
+    } else if (complaint.status.toLowerCase() == 'in progress' ||
+        complaint.status.toLowerCase() == 'assigned') {
+      icon = Icons.sync_rounded;
+      color = appTheme.blue500;
+    } else {
+      icon = Icons.schedule;
+      color = appTheme.orange900;
+    }
+
+    final dateStr = DateFormat('dd MMM').format(complaint.createdAt);
+    final statusText = isResolved
+        ? 'Resolved on $dateStr'
+        : isRejected
+            ? 'Rejected'
+            : complaint.status;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 10.w,
       children: [
-        Icon(
-          isResolved ? Icons.check_circle_outline : Icons.schedule,
-          color: isResolved ? appTheme.green700 : appTheme.orange900,
-          size: 20.h,
-        ),
+        Icon(icon, color: color, size: 20.h),
         Expanded(
           child: Text(
-            text,
+            '${complaint.category.tr} – $statusText',
             style: CustomTextStyle.textSmRegular.copyWith(
               color: appTheme.black700,
             ),
@@ -180,3 +278,4 @@ class _HistoryItem extends StatelessWidget {
     );
   }
 }
+

@@ -10,6 +10,21 @@ part 'track_status_state.dart';
 class TrackStatusBloc extends Bloc<TrackStatusEvent, TrackStatusState> {
   TrackStatusBloc() : super(const TrackStatusState()) {
     on<LoadComplaintStatusEvent>(_onLoadComplaintStatus);
+    on<DeleteComplaintEvent>(_onDeleteComplaint);
+  }
+
+  Future<void> _onDeleteComplaint(
+    DeleteComplaintEvent event,
+    Emitter<TrackStatusState> emit,
+  ) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('complaints')
+          .doc(event.complaintId)
+          .delete();
+    } catch (e) {
+      emit(state.copyWith(errorMessage: e.toString()));
+    }
   }
 
   Future<void> _onLoadComplaintStatus(

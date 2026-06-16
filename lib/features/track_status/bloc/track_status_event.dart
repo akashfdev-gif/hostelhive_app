@@ -7,3 +7,8 @@ abstract class TrackStatusEvent {
 class LoadComplaintStatusEvent extends TrackStatusEvent {
   const LoadComplaintStatusEvent();
 }
+
+class DeleteComplaintEvent extends TrackStatusEvent {
+  final String complaintId;
+  const DeleteComplaintEvent(this.complaintId);
+}
