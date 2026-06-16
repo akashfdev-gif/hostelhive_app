@@ -1,5 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hostel_hive/core/app_export.dart';
+import 'package:equatable/equatable.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hostel_hive/core/models/complaint_model.dart';
 
 part 'track_status_event.dart';
 part 'track_status_state.dart';
@@ -9,46 +12,35 @@ class TrackStatusBloc extends Bloc<TrackStatusEvent, TrackStatusState> {
     on<LoadComplaintStatusEvent>(_onLoadComplaintStatus);
   }
 
-  void _onLoadComplaintStatus(
+  Future<void> _onLoadComplaintStatus(
     LoadComplaintStatusEvent event,
     Emitter<TrackStatusState> emit,
-  ) {
-    // Mock data – replace with real API call
-    emit(const TrackStatusState(
-      complaintId: 'CMP-20260613-001',
-      category: 'lbl_cat_wifi',
-      title: 'lbl_complaint_title_sample',
-      submittedOn: 'lbl_submitted_on_sample',
-      priority: 'lbl_high',
-      status: ComplaintStatus.inProgress,
-      adminRemark: 'msg_admin_remark_sample',
-      timeline: [
-        ComplaintTimelineStep(
-          titleKey: 'lbl_step_submitted',
-          dateTime: 'lbl_step_submitted_time',
-          stepStatus: StepStatus.completed,
-        ),
-        ComplaintTimelineStep(
-          titleKey: 'lbl_step_received',
-          dateTime: 'lbl_step_received_time',
-          stepStatus: StepStatus.completed,
-        ),
-        ComplaintTimelineStep(
-          titleKey: 'lbl_step_assigned',
-          dateTime: 'lbl_step_assigned_time',
-          stepStatus: StepStatus.active,
-        ),
-        ComplaintTimelineStep(
-          titleKey: 'lbl_step_in_progress',
-          dateTime: null,
-          stepStatus: StepStatus.upcoming,
-        ),
-        ComplaintTimelineStep(
-          titleKey: 'lbl_step_resolved',
-          dateTime: null,
-          stepStatus: StepStatus.upcoming,
-        ),
-      ],
-    ));
+  ) async {
+    emit(state.copyWith(isLoading: true));
+
+    try {
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+
+      await emit.forEach<QuerySnapshot<Map<String, dynamic>>>(
+        FirebaseFirestore.instance
+            .collection('complaints')
+            .where('studentId', isEqualTo: uid)
+            .snapshots(),
+        onData: (querySnapshot) {
+          final complaints = querySnapshot.docs
+              .map((doc) => ComplaintModel.fromFirestore(doc))
+              .toList()
+            ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+          return state.copyWith(isLoading: false, complaints: complaints);
+        },
+        onError: (error, stackTrace) {
+          return state.copyWith(
+              isLoading: false, errorMessage: error.toString());
+        },
+      );
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
+    }
   }
 }

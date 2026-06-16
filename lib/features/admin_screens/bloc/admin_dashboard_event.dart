@@ -25,3 +25,18 @@ enum AdminTab {
   students,
   profile,
 }
+
+class UpdateComplaintStatusEvent extends AdminDashboardEvent {
+  final String complaintId;
+  final String newStatus;
+  final String adminMessage;
+
+  const UpdateComplaintStatusEvent({
+    required this.complaintId,
+    required this.newStatus,
+    required this.adminMessage,
+  });
+
+  @override
+  List<Object?> get props => [complaintId, newStatus, adminMessage];
+}

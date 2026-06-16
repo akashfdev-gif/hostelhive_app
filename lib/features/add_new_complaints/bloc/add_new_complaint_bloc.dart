@@ -90,7 +90,12 @@ class AddNewComplaintBloc
         'studentId': uid,
         'studentName': userDoc['name'] ?? '',
         'status': 'Pending',
+        'adminMessage': '',
         'createdAt': Timestamp.now(),
+        'receivedAt': null,
+        'assignedAt': null,
+        'inProgressAt': null,
+        'resolvedAt': null,
       });
 
       emit(state.copyWith(isSubmitting: false));

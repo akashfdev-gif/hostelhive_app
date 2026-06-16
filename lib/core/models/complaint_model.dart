@@ -12,8 +12,11 @@ class ComplaintModel {
   final String category;
   final String priority;
   final String contactNumber;
-  final String? adminRemark;
-
+  final String adminMessage;
+  final DateTime? receivedAt;
+  final DateTime? assignedAt;
+  final DateTime? inProgressAt;
+  final DateTime? resolvedAt;
   ComplaintModel({
     required this.id,
     required this.title,
@@ -26,7 +29,11 @@ class ComplaintModel {
     required this.category,
     required this.priority,
     required this.contactNumber,
-    this.adminRemark,
+    this.adminMessage = '',
+    this.receivedAt,
+    this.assignedAt,
+    this.inProgressAt,
+    this.resolvedAt,
   });
 
   factory ComplaintModel.fromFirestore(DocumentSnapshot doc) {
@@ -43,7 +50,11 @@ class ComplaintModel {
       category: data['category'] ?? '',
       priority: data['priority'] ?? 'lbl_medium',
       contactNumber: data['contactNumber'] ?? '',
-      adminRemark: data['adminRemark'],
+      adminMessage: data['adminMessage'] ?? '',
+      receivedAt: (data['receivedAt'] as Timestamp?)?.toDate(),
+      assignedAt: (data['assignedAt'] as Timestamp?)?.toDate(),
+      inProgressAt: (data['inProgressAt'] as Timestamp?)?.toDate(),
+      resolvedAt: (data['resolvedAt'] as Timestamp?)?.toDate(),
     );
   }
 
@@ -59,7 +70,11 @@ class ComplaintModel {
       'category': category,
       'priority': priority,
       'contactNumber': contactNumber,
-      'adminRemark': adminRemark,
+      'adminMessage': adminMessage,
+      'receivedAt': receivedAt != null ? Timestamp.fromDate(receivedAt!) : null,
+      'assignedAt': assignedAt != null ? Timestamp.fromDate(assignedAt!) : null,
+      'inProgressAt': inProgressAt != null ? Timestamp.fromDate(inProgressAt!) : null,
+      'resolvedAt': resolvedAt != null ? Timestamp.fromDate(resolvedAt!) : null,
     };
   }
 
@@ -75,7 +90,11 @@ class ComplaintModel {
     String? category,
     String? priority,
     String? contactNumber,
-    String? adminRemark,
+    String? adminMessage,
+    DateTime? receivedAt,
+    DateTime? assignedAt,
+    DateTime? inProgressAt,
+    DateTime? resolvedAt,
   }) {
     return ComplaintModel(
       id: id ?? this.id,
@@ -89,7 +108,11 @@ class ComplaintModel {
       category: category ?? this.category,
       priority: priority ?? this.priority,
       contactNumber: contactNumber ?? this.contactNumber,
-      adminRemark: adminRemark ?? this.adminRemark,
+      adminMessage: adminMessage ?? this.adminMessage,
+      receivedAt: receivedAt ?? this.receivedAt,
+      assignedAt: assignedAt ?? this.assignedAt,
+      inProgressAt: inProgressAt ?? this.inProgressAt,
+      resolvedAt: resolvedAt ?? this.resolvedAt,
     );
   }
 }
