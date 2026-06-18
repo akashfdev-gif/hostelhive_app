@@ -46,7 +46,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       case DashboardQuickAction.viewMenu:
         emit(state.copyWith(selectedTab: DashboardTab.meals));
       case DashboardQuickAction.contactAdmin:
-        emit(state.copyWith(selectedTab: DashboardTab.profile));
+        emit(
+          state.copyWith(
+            selectedTab: DashboardTab.profile,
+            showAdminContactDialog: true,
+          ),
+        );
     }
   }
 

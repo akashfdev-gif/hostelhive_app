@@ -156,10 +156,12 @@ final Map<String, String> en = {
   // Dashboard – payments tab
   "lbl_payments_section": "Payments",
   "lbl_pending_fees": "Pending Fees",
+  "lbl_pending_payments": "Pending Fees",
   "lbl_payment_history": "Payment History",
   "lbl_online_payment": "Online Payment",
   "lbl_download_receipt": "Download Receipt",
   "msg_amount_due": "Hostel fee for May 2026",
+  "msg_pending_amount": "Hostel fee for May 2026",
   "msg_last_payment": "April 2026 – ₹2,500 – Paid",
   "lbl_hostel_fee": "Hostel Fee",
 
@@ -322,4 +324,15 @@ final Map<String, String> en = {
   "msg_admin_remark_sample":
       "We have assigned the network team. The issue will be resolved within 24 hours.",
   "msg_no_remarks": "No updates yet.",
+
+  // Admin key contact dialog
+  "lbl_key_contact_admin": "Key Contact Admin",
+  "lbl_contact_admin": "Contact Admin",
+  "lbl_admin_name": "Admin Name",
+  "lbl_admin_phone": "Admin Phone",
+  "lbl_admin_email": "Admin Email",
+  "msg_admin_contact_name": "Hostel Manager",
+  "msg_admin_contact_phone": "+91 98765 43210",
+  "msg_admin_contact_email": "admin@college.edu",
+  "lbl_close": "Close",
 };

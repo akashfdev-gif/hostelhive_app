@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel_hive/core/app_export.dart';
 import 'package:hostel_hive/features/dashboard_screen/bloc/dashboard_bloc.dart';
 import 'package:hostel_hive/features/dashboard_screen/widgets/dashboard_section_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
@@ -33,7 +35,8 @@ class HomeTab extends StatelessWidget {
               DashboardSectionCard(
                 title: 'lbl_complaint_status'.tr,
                 trailing: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: appTheme.orange50,
                     borderRadius: BorderRadius.circular(20.h),
@@ -61,6 +64,19 @@ class HomeTab extends StatelessWidget {
 }
 
 class _WelcomeCard extends StatelessWidget {
+  Stream<Map<String, dynamic>> _studentDocStream() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      return const Stream.empty();
+    }
+
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .map((snap) => (snap.data() ?? <String, dynamic>{}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,11 +106,19 @@ class _WelcomeCard extends StatelessWidget {
                     color: appTheme.otherWhite.withValues(alpha: 0.9),
                   ),
                 ),
-                Text(
-                  'msg_student_name'.tr,
-                  style: CustomTextStyle.textXlBold.copyWith(
-                    color: appTheme.otherWhite,
-                  ),
+                StreamBuilder<Map<String, dynamic>>(
+                  stream: _studentDocStream(),
+                  builder: (context, snapshot) {
+                    final name = snapshot.data?['name'] as String?;
+                    return Text(
+                      (name?.isNotEmpty ?? false)
+                          ? name!
+                          : 'msg_student_name'.tr,
+                      style: CustomTextStyle.textXlBold.copyWith(
+                        color: appTheme.otherWhite,
+                      ),
+                    );
+                  },
                 ),
                 Text(
                   'msg_room_info'.tr,
@@ -177,7 +201,8 @@ class _MealChip extends StatelessWidget {
         Icon(icon, color: appTheme.blue700, size: 22.h),
         Text(
           label,
-          style: CustomTextStyle.textXsMedium.copyWith(color: appTheme.black700),
+          style:
+              CustomTextStyle.textXsMedium.copyWith(color: appTheme.black700),
           textAlign: TextAlign.center,
         ),
       ],

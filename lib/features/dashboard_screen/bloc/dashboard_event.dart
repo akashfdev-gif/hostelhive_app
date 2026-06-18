@@ -30,3 +30,5 @@ class DashboardMealRatingChangedEvent extends DashboardEvent {
 
   final int rating;
 }
+
+class DashboardAdminContactDialogClosedEvent extends DashboardEvent {}
