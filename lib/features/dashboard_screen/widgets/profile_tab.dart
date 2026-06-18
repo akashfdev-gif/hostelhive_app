@@ -22,50 +22,21 @@ class _ProfileTabState extends State<ProfileTab> {
   String block = "";
   bool isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    loadUserData();
-  }
-
-  Future<void> loadUserData() async {
-    try {
-      final uid = FirebaseAuth.instance.currentUser!.uid;
-
-      final doc =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-      if (doc.exists) {
-        final data = doc.data();
-        setState(() {
-          name = data?['name'] ?? "";
-          email = data?['email'] ?? "";
-          phone = data?['phone'] ?? "";
-          course = data?['course'] ?? "";
-          roomNumber = data?['roomNumber'] ?? "";
-          block = data?['block'] ?? "";
-          isLoading = false;
-        });
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
+  Stream<Map<String, dynamic>> _studentDocStream() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      return const Stream.empty();
     }
+
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .map((snap) => (snap.data() ?? <String, dynamic>{}));
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-
     return BlocListener<DashboardBloc, DashboardState>(
       listenWhen: (previous, current) =>
           !previous.showAdminContactDialog && current.showAdminContactDialog,
@@ -83,132 +54,153 @@ class _ProfileTabState extends State<ProfileTab> {
       },
       child: BlocBuilder<DashboardBloc, DashboardState>(
         builder: (context, state) {
-          return SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 24.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 20.h,
-              children: [
-                NamedAvatar(
-                  name: name,
-                  radius: 40.h,
-                  fontSize: 24.fSize,
-                ),
-                Text(
-                  name,
-                  style: CustomTextStyle.textXlBold.copyWith(
-                    color: appTheme.black900,
-                  ),
-                ),
-                Text(
-                  'msg_room_info'.tr,
-                  style: CustomTextStyle.textSmMedium.copyWith(
-                    color: appTheme.gray600,
-                  ),
-                ),
-                DashboardSectionCard(
-                  title: 'lbl_student_details'.tr,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 10.h,
-                    children: [
-                      _DetailRow(
-                        icon: Icons.school_outlined,
-                        label: 'lbl_course'.tr,
-                        value: course.isEmpty ? 'msg_course_info'.tr : course,
-                      ),
-                      _DetailRow(
-                        icon: Icons.email_outlined,
-                        label: 'lbl_email'.tr,
-                        value: email,
-                      ),
-                      _DetailRow(
-                        icon: Icons.phone_outlined,
-                        label: 'lbl_phone'.tr,
-                        value: phone.isEmpty ? 'msg_phone_info'.tr : phone,
-                      ),
-                    ],
-                  ),
-                ),
-                DashboardSectionCard(
-                  title: 'lbl_room_details'.tr,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 10.h,
-                    children: [
-                      _DetailRow(
-                        icon: Icons.meeting_room_outlined,
-                        label: 'lbl_room_number'.tr,
-                        value: roomNumber.isEmpty ? '--' : roomNumber,
-                      ),
-                      _DetailRow(
-                        icon: Icons.apartment_outlined,
-                        label: 'lbl_block'.tr,
-                        value: block.isEmpty ? '--' : block,
-                      ),
-                    ],
-                  ),
-                ),
-                Text(
-                  'lbl_settings'.tr,
-                  style: CustomTextStyle.textBaseSemiBold.copyWith(
-                    color: appTheme.black900,
-                  ),
-                ),
-                _SettingsTile(
-                  icon: Icons.dark_mode_outlined,
-                  title: 'lbl_dark_mode'.tr,
-                  trailing: Switch(
-                    value: state.isDarkModeEnabled,
-                    activeThumbColor: theme.colorScheme.primary,
-                    onChanged: (_) {
-                      context
-                          .read<DashboardBloc>()
-                          .add(DashboardDarkModeToggledEvent());
-                    },
-                  ),
-                ),
-                _SettingsTile(
-                  icon: Icons.edit_outlined,
-                  title: 'lbl_edit_profile'.tr,
-                  onTap: () async {
-                    await NavigatorService.pushNamed(
-                      AppRoutes.editProfileScreen,
-                    );
-                    loadUserData();
-                  },
-                ),
-                _SettingsTile(
-                  icon: Icons.support_agent_outlined,
-                  title: 'lbl_contact_admin'.tr,
-                  onTap: () {
-                    showDialog<void>(
-                      context: context,
-                      builder: (context) => const AdminContactDialog(),
-                    );
-                  },
-                ),
-                CustomElevatedButton(
-                  text: 'lbl_logout'.tr,
-                  buttonStyle: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 48.h),
-                    backgroundColor: appTheme.red50,
-                    foregroundColor: theme.colorScheme.primary,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.h),
-                      side: BorderSide(color: theme.colorScheme.primary),
+          return StreamBuilder<Map<String, dynamic>>(
+            stream: _studentDocStream(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final data = snapshot.data!;
+              final nameVal = data['name'] as String? ?? '';
+              final emailVal = data['email'] as String? ?? '';
+              final phoneVal = data['phone'] as String? ?? '';
+              final courseVal = data['course'] as String? ?? '';
+              final roomNumberVal = data['roomNumber'] as String? ?? '';
+              final blockVal = data['block'] as String? ?? '';
+
+              return SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 24.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  spacing: 20.h,
+                  children: [
+                    NamedAvatar(
+                      name: nameVal,
+                      radius: 40.h,
+                      fontSize: 24.fSize,
                     ),
-                  ),
-                  textColor: theme.colorScheme.primary,
-                  onPressed: () {
-                    NavigatorService.pushNamedAndRemoveUntil(
-                      AppRoutes.walkthroughScreen,
-                    );
-                  },
+                    Text(
+                      nameVal,
+                      style: CustomTextStyle.textXlBold.copyWith(
+                        color: appTheme.black900,
+                      ),
+                    ),
+                    Text(
+                      'msg_room_info'.tr,
+                      style: CustomTextStyle.textSmMedium.copyWith(
+                        color: appTheme.gray600,
+                      ),
+                    ),
+                    DashboardSectionCard(
+                      title: 'lbl_student_details'.tr,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 10.h,
+                        children: [
+                          _DetailRow(
+                            icon: Icons.school_outlined,
+                            label: 'lbl_course'.tr,
+                            value: courseVal.isEmpty
+                                ? 'msg_course_info'.tr
+                                : courseVal,
+                          ),
+                          _DetailRow(
+                            icon: Icons.email_outlined,
+                            label: 'lbl_email'.tr,
+                            value: emailVal,
+                          ),
+                          _DetailRow(
+                            icon: Icons.phone_outlined,
+                            label: 'lbl_phone'.tr,
+                            value: phoneVal.isEmpty
+                                ? 'msg_phone_info'.tr
+                                : phoneVal,
+                          ),
+                        ],
+                      ),
+                    ),
+                    DashboardSectionCard(
+                      title: 'lbl_room_details'.tr,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 10.h,
+                        children: [
+                          _DetailRow(
+                            icon: Icons.meeting_room_outlined,
+                            label: 'lbl_room_number'.tr,
+                            value: roomNumberVal.isEmpty ? '--' : roomNumberVal,
+                          ),
+                          _DetailRow(
+                            icon: Icons.apartment_outlined,
+                            label: 'lbl_block'.tr,
+                            value: blockVal.isEmpty ? '--' : blockVal,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      'lbl_settings'.tr,
+                      style: CustomTextStyle.textBaseSemiBold.copyWith(
+                        color: appTheme.black900,
+                      ),
+                    ),
+                    _SettingsTile(
+                      icon: Icons.dark_mode_outlined,
+                      title: 'lbl_dark_mode'.tr,
+                      trailing: Switch(
+                        value: state.isDarkModeEnabled,
+                        activeThumbColor: theme.colorScheme.primary,
+                        onChanged: (_) {
+                          context
+                              .read<DashboardBloc>()
+                              .add(DashboardDarkModeToggledEvent());
+                        },
+                      ),
+                    ),
+                    _SettingsTile(
+                      icon: Icons.edit_outlined,
+                      title: 'lbl_edit_profile'.tr,
+                      onTap: () async {
+                        await NavigatorService.pushNamed(
+                          AppRoutes.editProfileScreen,
+                        );
+                        // No manual reload needed; Firestore stream updates automatically.
+                      },
+                    ),
+                    _SettingsTile(
+                      icon: Icons.support_agent_outlined,
+                      title: 'lbl_contact_admin'.tr,
+                      onTap: () {
+                        showDialog<void>(
+                          context: context,
+                          builder: (context) => const AdminContactDialog(),
+                        );
+                      },
+                    ),
+                    CustomElevatedButton(
+                      text: 'lbl_logout'.tr,
+                      buttonStyle: ElevatedButton.styleFrom(
+                        minimumSize: Size(double.infinity, 48.h),
+                        backgroundColor: appTheme.red50,
+                        foregroundColor: theme.colorScheme.primary,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.h),
+                          side: BorderSide(color: theme.colorScheme.primary),
+                        ),
+                      ),
+                      textColor: theme.colorScheme.primary,
+                      onPressed: () {
+                        NavigatorService.pushNamedAndRemoveUntil(
+                          AppRoutes.walkthroughScreen,
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           );
         },
       ),

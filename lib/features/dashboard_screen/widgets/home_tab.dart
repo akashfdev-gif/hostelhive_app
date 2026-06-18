@@ -110,29 +110,55 @@ class _WelcomeCard extends StatelessWidget {
                   stream: _studentDocStream(),
                   builder: (context, snapshot) {
                     final name = snapshot.data?['name'] as String?;
+                    final avatarName = name?.isNotEmpty == true
+                        ? name!
+                        : 'msg_student_name'.tr;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          avatarName,
+                          style: CustomTextStyle.textXlBold.copyWith(
+                            color: appTheme.otherWhite,
+                          ),
+                        ),
+                        SizedBox(height: 4.h),
+                      ],
+                    );
+                  },
+                ),
+                StreamBuilder<Map<String, dynamic>>(
+                  stream: _studentDocStream(),
+                  builder: (context, snapshot) {
+                    final roomNumber = snapshot.data?['roomNumber'] as String?;
+                    final block = snapshot.data?['block'] as String?;
+                    final roomInfo = (roomNumber?.isNotEmpty ?? false) &&
+                            (block?.isNotEmpty ?? false)
+                        ? '${roomNumber!}, ${block!}'
+                        : 'msg_room_info'.tr;
                     return Text(
-                      (name?.isNotEmpty ?? false)
-                          ? name!
-                          : 'msg_student_name'.tr,
-                      style: CustomTextStyle.textXlBold.copyWith(
-                        color: appTheme.otherWhite,
+                      roomInfo,
+                      style: CustomTextStyle.textSmMedium.copyWith(
+                        color: appTheme.blue100,
                       ),
                     );
                   },
                 ),
-                Text(
-                  'msg_room_info'.tr,
-                  style: CustomTextStyle.textSmMedium.copyWith(
-                    color: appTheme.blue100,
-                  ),
-                ),
               ],
             ),
           ),
-          NamedAvatar(
-            name: 'msg_student_name'.tr,
-            radius: 28.h,
-            fontSize: 18.fSize,
+          StreamBuilder<Map<String, dynamic>>(
+            stream: _studentDocStream(),
+            builder: (context, snapshot) {
+              final name = snapshot.data?['name'] as String?;
+              final avatarName =
+                  name?.isNotEmpty == true ? name! : 'msg_student_name'.tr;
+              return NamedAvatar(
+                name: avatarName,
+                radius: 28.h,
+                fontSize: 18.fSize,
+              );
+            },
           ),
         ],
       ),
